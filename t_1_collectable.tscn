@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://6cfp4xhspuah"]
+
+[ext_resource type="Script" path="res://t_1_collectable.gd" id="1_p8p3f"]
+[ext_resource type="Texture2D" uid="uid://cdewugitlvl6f" path="res://GhostBall2.png" id="2_e4wtm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sboa2"]
+
+[node name="T1Collectable" type="Node2D" groups=["Collectable"]]
+script = ExtResource("1_p8p3f")
+
+[node name="GhostBall" type="Sprite2D" parent="."]
+texture = ExtResource("2_e4wtm")
+
+[node name="GhostBallCollision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBallCollision"]
+position = Vector2(0, 1)
+scale = Vector2(12.59, 12.59)
+shape = SubResource("CircleShape2D_sboa2")
+
+[node name="center" type="Marker2D" parent="."]
+position = Vector2(-84, -110)
