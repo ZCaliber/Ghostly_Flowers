@@ -19,4 +19,6 @@ scale = Vector2(12.59, 12.59)
 shape = SubResource("CircleShape2D_sboa2")
 
 [node name="center" type="Marker2D" parent="."]
-position = Vector2(-84, -110)
+position = Vector2(-75, -110)
+
+[node name="truecenter" type="Marker2D" parent="."]

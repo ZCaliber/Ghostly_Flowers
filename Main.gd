@@ -46,7 +46,7 @@ func _on_collectable_collected(collectable_position: Vector2):
 		score_label.text = "[tornado radius=40.0 freq=5.0 connected=1][rainbow freq=1.0 sat=0.8 val=0.8][font_size=300]" + str(combo_counter) + "[/font_size][/rainbow][/tornado]"
 	else: score_label.text = "[rainbow freq=1.0 sat=0.8 val=0.8][font_size=200]" + str(combo_counter) + "[/font_size][/rainbow]" # Display combo score
 	 # Set a minimum size to ensure visibility
-	score_label.set_size(Vector2(500, 500)) # Set a minimum size to ensure visibility
+	score_label.set_size(Vector2(2000, 2000)) # Set a minimum size to ensure visibility
 	
 	# score_label.create_tween()
 	# print(score_label.get_children())
