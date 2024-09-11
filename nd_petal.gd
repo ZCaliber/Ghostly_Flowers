@@ -1,14 +1,34 @@
 extends Node2D
 
-var number_of_petals = 5 # Number of petals
-var petal_distance = 120 # Distance from the collectable center
+var number_of_petals: int = 5 # Number of petals
+var petal_distance: int = 120 # Distance from the collectable center
 var petal_angle = 360.0 / number_of_petals # Angle between each petal
 var petal_texture: Texture = preload("res://NoDirectionPetal.png") # Preload the petal texture (replace with the correct path to your texture)
+var petal_sprites = [] # Store petal sprites to manipulate later
 
+var max_rotation_speed = 2.0  # The maximum rotation speed in radians per second
+var min_rotation_speed = 0.1  # The minimum rotation speed (absolute value)
+
+var initial_rotation_offset: float = 1.6 # Adjust this to align the sprites (in radians)
+
+# Track velocity and position
+var velocity = Vector2()  # Store the current velocity
+var previous_position = Vector2()  # Track the previous position to calculate velocity
+
+var rotation_offsets = [1.6, 0.5, 4.8]
+
+func randomize_petals():
+	# Choose a random initial rotation offset from the array
+	initial_rotation_offset = rotation_offsets[randi() % rotation_offsets.size()]
+	if initial_rotation_offset == 1.6:
+		petal_distance = 150
 
 func _ready():
-	# Spawn the petals dynamically
+	randomize_petals()
+	
+	# Spawn the petals dynamically with the chosen initial offset
 	spawn_petals(global_position)  # Pass the current global position of the instance
+	previous_position = global_position  # Initialize the previous position
 
 func spawn_petals(center_position: Vector2):
 	for i in range(number_of_petals):
@@ -16,17 +36,51 @@ func spawn_petals(center_position: Vector2):
 		var petal_sprite = Sprite2D.new()
 		petal_sprite.texture = petal_texture
 		petal_sprite.z_index = -1  # Ensure the petals are drawn below the collectable
+		
 		# Calculate the angle in radians for the current petal
 		var angle_in_radians = deg_to_rad(i * petal_angle)
-
+		
 		# Set the position relative to the center of the initial petal
 		petal_sprite.position = Vector2(petal_distance * cos(angle_in_radians), petal_distance * sin(angle_in_radians))
 
-		# Rotate the petal to face outward, minus 4.86 is perfect sprite alignment
-		petal_sprite.rotation = angle_in_radians - 4.86 
-
+		# Apply an initial rotation offset to the petal's rotation itself
+		petal_sprite.rotation = angle_in_radians + initial_rotation_offset
+		
+		# Optionally add randomness to the rotation
+		# if random_rotation_offset:
+			# petal_sprite.rotation += rand_range(-0.2, 0.2)  # Small random angle adjustment (in radians)
+		
 		# Add the petal to this Node2D (the current instance, i.e., the root petal)
 		add_child(petal_sprite)
+		petal_sprites.append(petal_sprite) # Store the petal sprite for later rotation manipulation
 
-		# Debug print for petal positions
-		# print("Petal", i, "position:", petal_sprite.position)
+func _process(delta):
+	# Calculate the velocity based on the difference in position between frames
+	velocity = (global_position - previous_position) / delta
+	
+	# Save the current position to use in the next frame
+	previous_position = global_position
+
+	# Calculate the rotation speed based on the x velocity
+	var rotation_speed = velocity.x * 0.05  # Adjust the multiplier to control rotation speed
+
+	# Clamp the rotation speed between -max_rotation_speed and max_rotation_speed
+	rotation_speed = clamp(rotation_speed, -max_rotation_speed, max_rotation_speed)
+	
+	# Ensure the speed is at least the minimum rotation speed if the collectable is moving
+	if abs(rotation_speed) < min_rotation_speed and velocity.x != 0:
+		rotation_speed = sign(rotation_speed) * min_rotation_speed
+
+	# Rotate the petals based on the clamped speed
+	for i in range(number_of_petals):
+		var petal_sprite = petal_sprites[i]
+		
+		# Calculate the angle in radians for the petal's movement around the center
+		var current_angle = petal_sprite.position.angle()  # Get the current angle of the petal
+		var new_angle = current_angle + rotation_speed * delta  # Update the angle based on velocity
+
+		# Update the petal's position around the center (keeping the radial distance consistent)
+		petal_sprite.position = Vector2(petal_distance * cos(new_angle), petal_distance * sin(new_angle))
+		
+		# Now rotate the petal itself to keep facing outwards as it moves (keep initial offset)
+		petal_sprite.rotation = new_angle + initial_rotation_offset
