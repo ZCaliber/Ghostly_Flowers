@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccbb8jl6nnvai"]
+
+[ext_resource type="Script" path="res://diag_petal.gd" id="1_ppq4m"]
+
+[node name="DiagPetal" type="Node2D"]
+script = ExtResource("1_ppq4m")
+
+[node name="alignment" type="Marker2D" parent="."]

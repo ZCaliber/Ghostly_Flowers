@@ -13,6 +13,9 @@ var directionals = 0 # 0 = none, 1 = L/R, 2 = U/D, 3 = Diagonals
 
 # Preload the petal scene
 var no_direction: PackedScene = preload("res://nd_petal.tscn")
+var lr_petal: PackedScene = preload("res://lr_petal.tscn")
+var ud_petal: PackedScene = preload("res://ud_petal.tscn")
+var diag_petal: PackedScene = preload("res://diag_petal.tscn")
 
 # Function to spawn petals when collectable becomes active
 func activate_petals():
@@ -21,8 +24,23 @@ func activate_petals():
 		if petal_instance:
 			# petal_instance.spawn_petals($truecenter.global_position) # Position petals at the true center # Position debug
 			add_child(petal_instance)
-		else:
-			print("Failed to instantiate petal scene")
+	elif directionals == 1:  # Left/Right petals
+		var petal_instance = lr_petal.instantiate() as Node2D
+		if petal_instance:
+			# petal_instance.spawn_petals($truecenter.global_position) # Position petals at the true center # Position debug
+			add_child(petal_instance)
+	elif directionals == 2:  # Up/Down petals
+		var petal_instance = ud_petal.instantiate() as Node2D
+		if petal_instance:
+			# petal_instance.spawn_petals($truecenter.global_position) # Position petals at the true center # Position debug
+			add_child(petal_instance)
+	elif directionals == 3:  # Diagonal petals
+		var petal_instance = diag_petal.instantiate() as Node2D
+		if petal_instance:
+			# petal_instance.spawn_petals($truecenter.global_position) # Position petals at the true center # Position debug
+			add_child(petal_instance)
+	else:
+		print("Failed to instantiate petal scene")
 
 func _ready():
 	# Connect signals for GhostBallCollision

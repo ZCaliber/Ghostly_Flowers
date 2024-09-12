@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkm1e1ql68r7m"]
+
+[ext_resource type="Script" path="res://lr_petal.gd" id="1_58ose"]
+
+[node name="LRPetal" type="Node2D"]
+script = ExtResource("1_58ose")
+
+[node name="Alignment" type="Marker2D" parent="."]

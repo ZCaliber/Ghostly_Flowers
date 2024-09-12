@@ -97,7 +97,7 @@ func _on_collectable_collected(collectable_position: Vector2):
 	# Update the main ComboCounter label
 	update_combo_label()
 	
-func check_combo_milestones():
+func check_combo_milestones(): # Unused
 	if combo_counter in combo_milestones:
 		show_special_combo_effect(combo_counter)
 

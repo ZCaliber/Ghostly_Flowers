@@ -1,8 +1,8 @@
 extends Node2D
 
 var number_of_petals: int = 0 # Number of petals
-var petal_distance: int = 120 # Distance from the collectable center
-var petal_texture: Texture = preload("res://NoDirectionPetal.png") # Preload the petal texture (replace with the correct path to your texture)
+var petal_distance: int = 140 # Distance from the collectable center
+var petal_texture: Texture = preload("res://LRPetal.png") # Preload the petal texture (replace with the correct path to your texture)
 var petal_sprites = [] # Store petal sprites to manipulate later
 
 var max_rotation_speed = 3.0  # The maximum rotation speed in radians per second
@@ -14,17 +14,18 @@ var initial_rotation_offset: float = 1.6 # Adjust this to align the sprites (in 
 var velocity = Vector2()  # Store the current velocity
 var previous_position = Vector2()  # Track the previous position to calculate velocity
 
-var rotation_offsets = [0.5, 1.6, 2.0, 4.8]
+var rotation_offsets = [-1.6, 0.5, 2.0, 2.5]
 
 func randomize_petals():
 	# Choose a random initial rotation offset from the array
 	initial_rotation_offset = rotation_offsets[randi() % rotation_offsets.size()]
 	# Custom petal configurations
-	if initial_rotation_offset == 1.6:
-		petal_distance = 150
+	if initial_rotation_offset == -1.6:
 		number_of_petals = 8
 	elif initial_rotation_offset == 0.5:
 		number_of_petals = 6
+	elif initial_rotation_offset == 2.0:
+		number_of_petals = 8
 	else:
 		number_of_petals = 5
 

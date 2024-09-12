@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://6536y65svbal"]
+
+[ext_resource type="Script" path="res://ud_petal.gd" id="1_oxt2f"]
+
+[node name="UDPetal" type="Node2D"]
+script = ExtResource("1_oxt2f")
+
+[node name="alignment" type="Marker2D" parent="."]
