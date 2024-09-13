@@ -1,12 +1,15 @@
 extends Node
 
 var combo_counter = 0  # To track the current combo
-var combo_milestones = [10, 50, 100, 150, 200, 250, 300, 350]  # Add more as needed
+var combo_milestones = [10, 20, 25, 150, 200, 250, 300, 350]  # Add more as needed
 var difficulty = 0
 
 signal progress(difficulty)
 
 @onready var combo_counter_label: RichTextLabel = $ComboCounter
+
+func _process(delta: float) -> void:
+	emit_signal("progress", difficulty) # Emit the difficulty value with the signal
 
 func _ready():
 	update_combo_label()
@@ -42,7 +45,6 @@ func _on_collectable_collected(collectable_position: Vector2):
 	score_label.set_position(collectable_position)
 	if combo_counter in combo_milestones:
 		difficulty += 1
-		emit_signal("progress", difficulty) # Emit the difficulty value with the signal
 		score_label.text = "[tornado radius=40.0 freq=5.0 connected=1][rainbow freq=1.0 sat=0.8 val=0.8][font_size=300]" + str(combo_counter) + "[/font_size][/rainbow][/tornado]"
 	else: score_label.text = "[rainbow freq=1.0 sat=0.8 val=0.8][font_size=200]" + str(combo_counter) + "[/font_size][/rainbow]" # Display combo score
 	 # Set a minimum size to ensure visibility
@@ -105,7 +107,6 @@ func reset_combo():
 	print("Combo reset!")
 	combo_counter = 0  # Reset combo score
 	difficulty = 0
-	emit_signal("progress")
 	update_combo_label()
 	 # Despawn all current collectables
 	for collectable in get_tree().get_nodes_in_group("Collectable"):
