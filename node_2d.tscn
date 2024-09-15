@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cn8hvjdysb0ua"]
+[gd_scene load_steps=16 format=3 uid="uid://cn8hvjdysb0ua"]
 
-[ext_resource type="Texture2D" uid="uid://svyx6to0pjky" path="res://OIG2.jpg" id="1_3jkqo"]
 [ext_resource type="Script" path="res://Main.gd" id="1_d6stb"]
+[ext_resource type="Texture2D" uid="uid://dv4ao1qsuwolg" path="res://Sprites/OIG2.jpg" id="2_ltrpo"]
+[ext_resource type="Texture2D" uid="uid://dphx1gb8bf8xo" path="res://Sprites/GhostBlock1.png" id="3_fcw5n"]
 [ext_resource type="Texture2D" uid="uid://ccvteosbr7ptx" path="res://GhostBlock1.png" id="4_08lbw"]
 [ext_resource type="Script" path="res://collectable_spawner.gd" id="4_si31q"]
 [ext_resource type="PackedScene" uid="uid://dfcb5odbb540n" path="res://ghost.tscn" id="5_qukfr"]
@@ -64,7 +65,7 @@ visibility_layer = 2
 z_index = -2
 position = Vector2(0, -1948)
 scale = Vector2(6.435, 6.435)
-texture = ExtResource("1_3jkqo")
+texture = ExtResource("2_ltrpo")
 
 [node name="Off-screen Top" type="Area2D" parent="."]
 position = Vector2(0, -3769)
@@ -101,7 +102,7 @@ shape = SubResource("RectangleShape2D_ublvc")
 position = Vector2(-1, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock1"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock1"]
 visible = false
@@ -113,7 +114,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(287, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock2"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock2"]
 visible = false
@@ -125,7 +126,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(575, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock3"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock3"]
 visible = false
@@ -137,7 +138,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(-289, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock4"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock4"]
 visible = false
@@ -149,7 +150,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(-577, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock5"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock5"]
 visible = false
@@ -164,7 +165,7 @@ tile_set = SubResource("TileSet_chcre")
 position = Vector2(-1441, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock6"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock6"]
 visible = false
@@ -176,7 +177,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(-1153, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock7"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock7"]
 visible = false
@@ -188,7 +189,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(-865, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock8"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock8"]
 visible = false
@@ -200,7 +201,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(-1729, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock9"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock9"]
 visible = false
@@ -212,7 +213,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(-2017, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock10"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock10"]
 visible = false
@@ -224,7 +225,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(1439, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock11"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock11"]
 visible = false
@@ -236,7 +237,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(1727, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock12"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock12"]
 visible = false
@@ -248,7 +249,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(2015, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock13"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock13"]
 visible = false
@@ -260,7 +261,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(1151, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock14"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock14"]
 visible = false
@@ -272,7 +273,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(863, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock15"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock15"]
 visible = false
@@ -284,7 +285,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(-2881, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock16"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock16"]
 visible = false
@@ -296,7 +297,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(-2593, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock17"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock17"]
 visible = false
@@ -308,7 +309,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(-2305, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock18"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock18"]
 visible = false
@@ -320,7 +321,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(-3169, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock19"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock19"]
 visible = false
@@ -332,7 +333,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(2879, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock20"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock20"]
 visible = false
@@ -344,7 +345,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(3167, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock21"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock21"]
 visible = false
@@ -356,7 +357,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(2591, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock23"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock23"]
 visible = false
@@ -368,7 +369,7 @@ shape = SubResource("RectangleShape2D_k7ca8")
 position = Vector2(2303, 418)
 
 [node name="Sprite2D" type="Sprite2D" parent="GhostBlock24"]
-texture = ExtResource("4_08lbw")
+texture = ExtResource("3_fcw5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock24"]
 visible = false

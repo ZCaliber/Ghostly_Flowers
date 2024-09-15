@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://6cfp4xhspuah"]
 
 [ext_resource type="Script" path="res://t_1_collectable.gd" id="1_p8p3f"]
-[ext_resource type="Texture2D" uid="uid://cdewugitlvl6f" path="res://GhostBall2.png" id="2_e4wtm"]
-[ext_resource type="Texture2D" uid="uid://orkeagfhc7uy" path="res://Arrow.png" id="3_3o1as"]
+[ext_resource type="Texture2D" uid="uid://dupy51sudt0o6" path="res://Sprites/GhostBall2.png" id="2_hqgnh"]
+[ext_resource type="Texture2D" uid="uid://dbi6m2rx486v8" path="res://Sprites/Arrow.png" id="3_2q6vl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sboa2"]
 
@@ -10,7 +10,7 @@
 script = ExtResource("1_p8p3f")
 
 [node name="GhostBall" type="Sprite2D" parent="."]
-texture = ExtResource("2_e4wtm")
+texture = ExtResource("2_hqgnh")
 
 [node name="GhostBallCollision" type="Area2D" parent="."]
 
@@ -26,5 +26,5 @@ position = Vector2(-75, -110)
 
 [node name="Arrow" type="Sprite2D" parent="."]
 visible = false
-texture = ExtResource("3_3o1as")
+texture = ExtResource("3_2q6vl")
 offset = Vector2(-20, -20)

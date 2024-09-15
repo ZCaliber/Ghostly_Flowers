@@ -2,7 +2,7 @@ extends Node2D
 
 var number_of_petals: int = 0 # Number of petals
 var petal_distance: int = 120 # Distance from the collectable center
-var petal_texture: Texture = preload("res://UDPetal.png") # Preload the petal texture (replace with the correct path to your texture)
+var petal_texture: Texture = preload("res://Sprites/UDPetal.png") # Preload the petal texture (replace with the correct path to your texture)
 var petal_sprites = [] # Store petal sprites to manipulate later
 
 var max_rotation_speed = 3.0  # The maximum rotation speed in radians per second

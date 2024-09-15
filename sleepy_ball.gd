@@ -4,11 +4,9 @@ signal collected(position: Vector2)
 signal missed
 
 var is_active = false
-var screen_top = -3000 # Activation threshold
+var screen_top = -2000 # Activation threshold
 var has_despawned = false
 var edge_push = 90 # Buffer for Collectable collision on edge
-var grace_count = 0 # Number of times grace period is applied
-var max_grace = 2 # Maximum number of grace periods allowed
 var directionals = 0 # 0 = none, 1 = L/R, 2 = U/D, 3 = Diagonals
 var stored_horizontal = 0 # Local variable for player direction, -1 for left, 1 for right, 0 for none
 var stored_vertical = 0 # Local variable for player direction,-1 for down, 1 for up, 0 for none
@@ -115,42 +113,31 @@ func _ready():
 	
 	_on_directionals_select()
 	decide_direction()
-	
-	# Create a timer for activation delay
-	if not has_node("activation_delay_timer"):
-		var timer = Timer.new()
-		timer.name = "activation_delay_timer"
-		timer.one_shot = true
-		timer.wait_time = 1.5 # Delay before activation
-		timer.connect("timeout", Callable(self, "_on_activation_timeout"))
-		add_child(timer)
-
 
 func _process(delta: float):
-	var timer = get_node("activation_delay_timer")
 	var overlapping_bodies = $GhostBallCollision.get_overlapping_bodies()
 
 	if directionals > 0:
 		$Arrow.visible = true
 
-	# Activate the collectable when it's above a certain position, no active timer, and collectable isn't active
+	# Activate the collectable
 	if is_active:
-		$GhostBall.texture = load("res://Sprites/GhostBall.png")
+		$GhostBall.texture = load("res://Sprites/SleepyBall.png")
 
-	if position.y > screen_top and !is_active and timer.is_stopped():
+	if position.y > screen_top and !is_active:
 		is_active = true
 		activate_petals()
 		
 	for body in overlapping_bodies:
-		if body.name == "Ghost" and directionals == 0 and is_active:
+		if body.name == "Ghost" and directionals >= 0 and is_active:
 			emit_signal("collected", $center.global_position)
 			queue_free()
 			return
 		else:
 			return
 
-var fall_speed = randi_range(400, 800)
-var side_speed = Vector2(randf_range(-1000, 1000), 0) # Random horizontal speed
+var fall_speed = randi_range(350, 400)
+var side_speed = Vector2(randf_range(-750, 750), 0) # Random horizontal speed
 
 func _physics_process(delta):
 	var camera = get_viewport().get_camera_2d()
@@ -174,9 +161,7 @@ func _physics_process(delta):
 	position += side_speed * delta
 
 func _on_Area_2D_body_entered(body):
-	if body.name == "Ghost" and !is_active and directionals > 0:
-		_on_activation_delay()
-	elif body.name == "Ghost" and is_active and directionals == 0:
+	if body.name == "Ghost" and is_active and directionals == 0:
 		emit_signal("collected", $center.global_position)
 		queue_free()
 	elif body.name == "Ghost" and is_active and directionals > 0:
@@ -230,17 +215,3 @@ func _on_floor_margin_area_entered(area: Area2D):
 		has_despawned = true
 		emit_signal("missed")
 		queue_free()
-
-func _on_activation_delay():
-	if grace_count < max_grace and directionals > 0:
-		$activation_delay_timer.start()
-		grace_count += 1
-	else:
-		is_active = true
-
-func _on_activation_timeout():
-	var overlapping_bodies = $GhostBallCollision.get_overlapping_bodies()
-	for body in overlapping_bodies:
-		if body.name == "Ghost":
-			_on_activation_delay()
-			return

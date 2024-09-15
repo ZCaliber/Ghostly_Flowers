@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://eq4nl3icdgpv"]
+
+[ext_resource type="Script" path="res://sleepy_ball.gd" id="1_r1ur2"]
+[ext_resource type="Texture2D" uid="uid://cmpckm62iwkvw" path="res://Sprites/SleepyBall2.png" id="2_xogaa"]
+[ext_resource type="Texture2D" uid="uid://dbi6m2rx486v8" path="res://Sprites/Arrow.png" id="3_rba7p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cnlwn"]
+
+[node name="SleepyBall" type="Node2D" groups=["Collectable"]]
+script = ExtResource("1_r1ur2")
+
+[node name="SleepyBall" type="Sprite2D" parent="."]
+texture = ExtResource("2_xogaa")
+
+[node name="GhostBallCollision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBallCollision"]
+position = Vector2(0, 1)
+scale = Vector2(12.59, 12.59)
+shape = SubResource("CircleShape2D_cnlwn")
+
+[node name="center" type="Marker2D" parent="."]
+position = Vector2(-75, -110)
+
+[node name="truecenter" type="Marker2D" parent="."]
+
+[node name="Arrow" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_rba7p")
+offset = Vector2(-20, -20)
