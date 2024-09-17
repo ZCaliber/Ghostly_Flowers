@@ -117,12 +117,12 @@ func _ready():
 func _process(delta: float):
 	var overlapping_bodies = $GhostBallCollision.get_overlapping_bodies()
 
-	if directionals > 0:
+	if directionals > 0 and is_active:
 		$Arrow.visible = true
 
 	# Activate the collectable
 	if is_active:
-		$GhostBall.texture = load("res://Sprites/SleepyBall.png")
+		$SleepyBall.texture = load("res://Sprites/SleepyBall.png")
 
 	if position.y > screen_top and !is_active:
 		is_active = true

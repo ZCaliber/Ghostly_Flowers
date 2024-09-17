@@ -73,13 +73,16 @@ func _process(delta):
 
 	# Calculate the rotation speed based on the x velocity
 	var rotation_speed = velocity.x * 0.005  # Adjust the multiplier to control rotation speed
+	var title_speed = 3.0
 
 	# Clamp the rotation speed between -max_rotation_speed and max_rotation_speed
 	rotation_speed = clamp(rotation_speed, -max_rotation_speed, max_rotation_speed)
 	
-	# Ensure the speed is at least the minimum rotation speed if the collectable is moving
+		# Ensure the speed is at least the minimum rotation speed if the collectable is moving
 	if abs(rotation_speed) < min_rotation_speed and velocity.x != 0:
 		rotation_speed = sign(rotation_speed) * min_rotation_speed
+	elif abs(rotation_speed) < min_rotation_speed and velocity.y == 0:
+		rotation_speed = sign(title_speed)
 
 	# Rotate the petals based on the clamped speed
 	for i in range(number_of_petals):

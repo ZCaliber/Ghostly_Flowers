@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxgnyliibx3g8"]
+
+[ext_resource type="Texture2D" uid="uid://dphx1gb8bf8xo" path="res://Sprites/GhostBlock1.png" id="1_5pwa3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwhkq"]
+
+[node name="GhostBlock" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5pwa3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1, 16)
+scale = Vector2(14.39, 13.035)
+shape = SubResource("RectangleShape2D_kwhkq")

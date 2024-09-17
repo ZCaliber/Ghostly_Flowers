@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Ghostly flowers"
-run/main_scene="res://node_2d.tscn"
+run/main_scene="res://Title.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,9 @@ config/icon="res://icon.svg"
 
 Collectable="Indicates an entity is a collectable"
 Floor="Denotes an area of floor to despawn falling collectables."
+Sounds="Anything that can be considered a 'sound'"
+Music="Anything that can be considered 'music'"
+CharacterSprite="Sprites for the character"
 
 [input]
 

@@ -1,8 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cn8hvjdysb0ua"]
+[gd_scene load_steps=18 format=3 uid="uid://cn8hvjdysb0ua"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_d6stb"]
 [ext_resource type="Texture2D" uid="uid://dv4ao1qsuwolg" path="res://Sprites/OIG2.jpg" id="2_ltrpo"]
+[ext_resource type="AudioStream" uid="uid://b0j4uonjmq6kf" path="res://Sounds/Collect.mp3" id="2_ymxuu"]
 [ext_resource type="Texture2D" uid="uid://dphx1gb8bf8xo" path="res://Sprites/GhostBlock1.png" id="3_fcw5n"]
+[ext_resource type="AudioStream" uid="uid://v66nw4jxqv8h" path="res://Sounds/Gimmick.mp3" id="3_uml0h"]
 [ext_resource type="Texture2D" uid="uid://ccvteosbr7ptx" path="res://GhostBlock1.png" id="4_08lbw"]
 [ext_resource type="Script" path="res://collectable_spawner.gd" id="4_si31q"]
 [ext_resource type="PackedScene" uid="uid://dfcb5odbb540n" path="res://ghost.tscn" id="5_qukfr"]
@@ -34,6 +36,16 @@ sources/0 = SubResource("TileSetAtlasSource_patlp")
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_d6stb")
+
+[node name="CollectSounds" type="AudioStreamPlayer" parent="." groups=["Sounds"]]
+stream = ExtResource("2_ymxuu")
+max_polyphony = 3
+
+[node name="Music" type="AudioStreamPlayer" parent="." groups=["Music"]]
+stream = ExtResource("3_uml0h")
+volume_db = 5.0
+autoplay = true
+parameters/looping = true
 
 [node name="ComboCounter" type="RichTextLabel" parent="."]
 visible = false

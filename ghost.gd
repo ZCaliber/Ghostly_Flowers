@@ -40,7 +40,9 @@ func _physics_process(delta: float) -> void:
 
 	# Flip the sprite based on the current movement direction
 	if horizontal_direction != 0:
-		$Sprite.flip_h = (horizontal_direction == 1)
+		for node in get_tree().get_nodes_in_group("CharacterSprite"):
+			if node is Sprite2D:
+				node.flip_h = (horizontal_direction == 1)
 
 	move_and_slide()
 

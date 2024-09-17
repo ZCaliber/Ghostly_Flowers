@@ -1,6 +1,7 @@
 extends Area2D
 
-var collectable_scene = preload("res://t_1_collectable.tscn")
+var Ghostball = preload("res://t_1_collectable.tscn")
+var SleepyBall = preload("res://sleepy_ball.tscn")
 var spawn_low = 1.25
 var spawn_high = 2.0
 var spawn_interval = randf_range(spawn_low, spawn_high)
@@ -30,7 +31,7 @@ func _ready():
 	add_child(spawn_timer)
 
 func _spawn_collectable():
-	var collectable = collectable_scene.instantiate()
+	var collectable = Ghostball.instantiate()
 
 	var area_shape = %CollisionShape2D.shape
 	if area_shape is RectangleShape2D:

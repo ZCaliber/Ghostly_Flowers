@@ -1,14 +1,15 @@
 extends Node
 
 var combo_counter = 0  # To track the current combo
-var combo_milestones = [10, 20, 25, 150, 200, 250, 300, 350]  # Add more as needed
+var combo_milestones = [10, 50, 100, 150, 200, 250, 300, 350]  # Add more as needed
 var difficulty = 0
 
+@warning_ignore("unused_signal")
 signal progress(difficulty)
 
 @onready var combo_counter_label: RichTextLabel = $ComboCounter
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	emit_signal("progress", difficulty) # Emit the difficulty value with the signal
 
 func _ready():
@@ -21,14 +22,14 @@ func on_collectable_spawned(collectable: Node2D):
 			collectable.connect("collected", Callable(self, "_on_collectable_collected"))
 		# Debug: print("Connected 'collected' signal for: ", collectable.name)
 	else:
-		print("Collectable has no 'collected' signal!")
+		push_error("Collectable has no 'collected' signal!")
 
 	if collectable.has_signal("missed"):
 		if not collectable.is_connected("missed", Callable(self, "reset_combo")):
 			collectable.connect("missed", Callable(self, "reset_combo"))
 		# Debug: print("Connected 'missed' signal for: ", collectable.name)
 	else:
-		print("Collectable has no 'missed' signal!")
+		push_error("Collectable has no 'missed' signal!")
 
 func update_combo_label():
 	combo_counter_label.clear()
@@ -38,7 +39,7 @@ func _on_collectable_collected(collectable_position: Vector2):
 	#print("Collectable collected!")
 	combo_counter += 1  # Increase combo score
 	update_combo_label()
-	check_combo_milestones()
+	# check_combo_milestones()
 	# Spawn a new RichTextLabel at the collectable's position
 	var score_label = RichTextLabel.new()
 	score_label.bbcode_enabled = true
@@ -53,7 +54,7 @@ func _on_collectable_collected(collectable_position: Vector2):
 	# score_label.create_tween()
 	# print(score_label.get_children())
 
-	# Tween zone
+	# Tween zone, not working ATM...
 	if score_label.is_ready() == true:
 		score_label.create_tween().tween_property(self, "position", Vector2(0, -1000), 100)
 		
@@ -98,20 +99,39 @@ func _on_collectable_collected(collectable_position: Vector2):
 	
 	# Update the main ComboCounter label
 	update_combo_label()
+	collection_audio()
 	
-func check_combo_milestones(): # Unused
-	if combo_counter in combo_milestones:
-		show_special_combo_effect(combo_counter)
+# func check_combo_milestones(): # Unused
+	# if combo_counter in combo_milestones:
+		# show_special_combo_effect(combo_counter)
 
 func reset_combo():
-	print("Combo reset!")
+	# print("Combo reset!")
 	combo_counter = 0  # Reset combo score
 	difficulty = 0
 	update_combo_label()
+	miss_audio()
 	 # Despawn all current collectables
 	for collectable in get_tree().get_nodes_in_group("Collectable"):
 		collectable.queue_free()  # Safely remove all collectable nodes
 
-func show_special_combo_effect(combo):
-	print("Combo Milestone Reached: " + str(combo))
+# func show_special_combo_effect(combo):
+	# print("Combo Milestone Reached: " + str(combo))
 	# Implement special effects here, such as animations or sounds
+
+func collection_audio():
+	var Collect = load("res://Sounds/Collect.mp3") as AudioStream
+	var Milestone = load("res://Sounds/Milestone.mp3") as AudioStream
+	
+	# Check if the current combo counter is in the milestone array
+	if combo_counter in combo_milestones:
+		$CollectSounds.stream = Milestone # Set the stream to milestone sound
+		$CollectSounds.play() # Play the milestone sound
+	else:
+		$CollectSounds.stream = Collect # Set the regular collection sound
+		$CollectSounds.play() # Play the collect sound
+
+func miss_audio():
+	var Miss = load("res://Sounds/ResetCombo.mp3") as AudioStream
+	$CollectSounds.stream = Miss
+	$CollectSounds.play()
