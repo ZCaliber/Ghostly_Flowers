@@ -5,18 +5,18 @@ var petal_distance: int = 100 # Distance from the collectable center
 var petal_texture: Texture = preload("res://Sprites/DiagPetal.png") # Preload the petal texture (replace with the correct path to your texture)
 var petal_sprites = [] # Store petal sprites to manipulate later
 
-var max_rotation_speed = 3.0  # The maximum rotation speed in radians per second
-var min_rotation_speed = 0.5  # The minimum rotation speed (absolute value)
+var max_rotation_speed: float = 3.0  # The maximum rotation speed in radians per second
+var min_rotation_speed: float = 0.5  # The minimum rotation speed (absolute value)
 
 var initial_rotation_offset: float = 1.6 # Adjust this to align the sprites (in radians)
 
 # Track velocity and position
-var velocity = Vector2()  # Store the current velocity
-var previous_position = Vector2()  # Track the previous position to calculate velocity
+var velocity := Vector2()  # Store the current velocity
+var previous_position := Vector2()  # Track the previous position to calculate velocity
 
-var rotation_offsets = [1.5, 2.0, -1.4]
+var rotation_offsets := [1.5, 2.0, -1.4]
 
-func randomize_petals():
+func randomize_petals() -> void:
 	# Choose a random initial rotation offset from the array
 	initial_rotation_offset = rotation_offsets[randi() % rotation_offsets.size()]
 	# Custom petal configurations
@@ -25,19 +25,19 @@ func randomize_petals():
 	else:
 		number_of_petals = 20
 
-func _ready():
+func _ready() -> void:
 	randomize_petals()
 
 	# Recalculate petal angle only if there are petals to spawn
 	if number_of_petals > 0:
 		# Recalculate petal_angle based on the number of petals
-		var petal_angle = 360.0 / number_of_petals
+		var petal_angle: float = 360.0 / number_of_petals
 		
 		# Spawn the petals dynamically with the chosen initial offset
 		spawn_petals(global_position)  # Pass the current global position of the instance
 		previous_position = global_position  # Initialize the previous position
 
-func spawn_petals(center_position: Vector2):
+func spawn_petals(center_position: Vector2) -> void:
 	# Ensure that the number of petals is greater than zero
 	if number_of_petals <= 0:
 		return
@@ -49,7 +49,7 @@ func spawn_petals(center_position: Vector2):
 		petal_sprite.z_index = -1  # Ensure the petals are drawn below the collectable
 		
 		# Calculate the angle in radians for the current petal
-		var angle_in_radians = deg_to_rad(i * (360.0 / number_of_petals))
+		var angle_in_radians := deg_to_rad(i * (360.0 / number_of_petals))
 		
 		# Set the position relative to the center of the initial petal
 		petal_sprite.position = Vector2(petal_distance * cos(angle_in_radians), petal_distance * sin(angle_in_radians))
@@ -61,7 +61,7 @@ func spawn_petals(center_position: Vector2):
 		add_child(petal_sprite)
 		petal_sprites.append(petal_sprite) # Store the petal sprite for later rotation manipulation
 
-func _process(delta):
+func _process(delta) -> void:
 	# Calculate the velocity based on the difference in position between frames
 	velocity = (global_position - previous_position) / delta
 	
@@ -69,8 +69,8 @@ func _process(delta):
 	previous_position = global_position
 
 	# Calculate the rotation speed based on the x velocity
-	var rotation_speed = velocity.x * 0.005  # Adjust the multiplier to control rotation speed
-	var title_speed = 3.0
+	var rotation_speed := velocity.x * 0.005  # Adjust the multiplier to control rotation speed
+	var title_speed: float = 3.0
 
 	# Clamp the rotation speed between -max_rotation_speed and max_rotation_speed
 	rotation_speed = clamp(rotation_speed, -max_rotation_speed, max_rotation_speed)

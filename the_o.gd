@@ -1,6 +1,6 @@
 extends Sprite2D
 
-var directionals = 0
+var directionals: int = 0
 
 
 # Preload the petal scene
@@ -9,7 +9,7 @@ var lr_petal: PackedScene = preload("res://lr_petal.tscn")
 var ud_petal: PackedScene = preload("res://ud_petal.tscn")
 var diag_petal: PackedScene = preload("res://diag_petal.tscn")
 
-func activate_petals():
+func activate_petals() -> void:
 	if directionals == 0:  # No Directions petals
 		var petal_instance = no_direction.instantiate() as Node2D
 		if petal_instance:
@@ -34,7 +34,7 @@ func activate_petals():
 		push_error("Failed to instantiate petal scene")
 		
 		
-func _on_directionals_select():
+func _on_directionals_select() -> void:
 	# Define thresholds for each type of directionals
 	# These thresholds and probabilities can be adjusted as needed
 	var no_direction_prob = clamp(0.05, 0.1, 1.0)  # Probability decreases with difficulty
@@ -56,6 +56,6 @@ func _on_directionals_select():
 	else:
 		directionals = 3  # Diagonals
 
-func _ready():
+func _ready() -> void:
 	_on_directionals_select()
 	activate_petals()

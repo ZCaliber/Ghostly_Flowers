@@ -3,27 +3,53 @@ extends CharacterBody2D
 @warning_ignore("unused_signal")
 signal directions(horizontal_direction, vertical_direction)
 
-const SPEED = 2000.0
-const FLOOR_SPEED_BOOST = 2.0  # Multiplier for speed on the floor
+const SPEED: float = 2000.0
+const FLOOR_SPEED_BOOST: float = 2.0  # Multiplier for speed on the floor
 # const AIR_SPEED_DECAY = 500.00  # Fine-tuning for air speed deceleration
-const HORIZONTAL_DECELERATION = 1000.0  # Adjustable deceleration rate when no input is pressed (airborne)
-const BOOST_DECAY_RATE = 3.0  # Rate at which the boosted speed decays to normal airspeed
+const HORIZONTAL_DECELERATION: float = 1000.0  # Adjustable deceleration rate when no input is pressed (airborne)
+const BOOST_DECAY_RATE: float = 4.0  # Rate at which the boosted speed decays to normal airspeed
 
-var horizontal_input = 0  # For input-based movement (-1 for left, 1 for right)
-var vertical_input = 0  # For input-based vertical movement (-1 for down, 1 for up)
-var horizontal_direction = 0  # For movement-based direction (-1 for left, 1 for right)
-var vertical_direction = 0  # For movement-based direction (-1 for down, 1 for up)
-var previous_direction = 0  # To store the last valid direction from input
-var velocity_x_floor_boost = 0.0  # To store boosted floor speed
-var lingering_boost_speed = 0.0  # Speed after leaving the floor to decay
-var flight = 0.6  # Flight (Anti-gravity)
-var jump = -1500.0  # Jump velocity
-var drop = 5  # Drop speed multiplier
+var horizontal_input: int = 0  # For input-based movement (-1 for left, 1 for right)
+var vertical_input: int = 0  # For input-based vertical movement (-1 for down, 1 for up)
+var horizontal_direction: int = 0  # For movement-based direction (-1 for left, 1 for right)
+var vertical_direction: int = 0  # For movement-based direction (-1 for down, 1 for up)
+var previous_direction: int = 0  # To store the last valid direction from input
+var velocity_x_floor_boost: float = 0.0  # To store boosted floor speed
+var lingering_boost_speed: float = 0.0  # Speed after leaving the floor to decay
+var flight: float = 0.6  # Flight (Anti-gravity)
+var jump: float = -1500.0  # Jump velocity
+var drop: int = 5  # Drop speed multiplier
+
+# Preload textures
+var eyes_open := preload("res://Sprites/Ghosty/GhostyEyesO.png")
+var eyes_closed := preload("res://Sprites/Ghosty/GhostyEyesC.png")
+var eyes_cla := preload("res://Sprites/Ghosty/GhostyEyesCla.png")
+var eyes_drop := preload("res://Sprites/Ghosty/GhostyEyesD.png")
+
+var mouth_open := preload("res://Sprites/Ghosty/GhostyMouthO.png")
+var mouth_closed := preload("res://Sprites/Ghosty/GhostyMouthC.png")
+
+var blush_normal := preload("res://Sprites/Ghosty/GhostyBlush.png")
+var blush_mega := preload("res://Sprites/Ghosty/GhostyBlushMega.png")
+
+var sprite_blank := preload("res://Sprites/Ghosty/GhostyBlank.png")
+var sprite_blank_drop := preload("res://Sprites/Ghosty/GhostyBlankDrop.png")
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	# Emit signal with the current movement directions
 	emit_signal("directions", horizontal_direction, vertical_direction)
+
+	# Determine animation state based on velocity
+	if velocity.y > 3000:
+		# Falling state
+		set_animation_state_dropping()
+	elif abs(velocity.x) > SPEED + 10:
+		# Moving state
+		set_animation_state_moving()
+	else:
+		# Idle state
+		set_animation_state_idle()
 
 func _physics_process(delta: float) -> void:
 	# Handle input
@@ -121,3 +147,24 @@ func _handle_horizontal_movement(delta: float) -> void:
 	# Instant stop on the floor
 	if horizontal_input == 0 and is_on_floor():
 		velocity.x = 0
+
+# Animation state functions
+func set_animation_state_moving() -> void:
+	$Sprite.texture = sprite_blank
+	$Eyes.texture = eyes_cla
+	$Mouth.texture = mouth_open
+	$Mouth.visible = true
+	$Blush.texture = blush_normal
+
+func set_animation_state_dropping() -> void:
+	$Sprite.texture = sprite_blank_drop
+	$Eyes.texture = eyes_drop
+	$Mouth.visible = false
+	$Blush.texture = blush_mega
+
+func set_animation_state_idle() -> void:
+	$Sprite.texture = sprite_blank
+	$Eyes.texture = eyes_open
+	$Mouth.texture = mouth_closed
+	$Mouth.visible = true
+	$Blush.texture = blush_normal

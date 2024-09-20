@@ -3,16 +3,16 @@ extends Node2D
 signal collected(position: Vector2)
 signal missed
 
-var is_active = false
-var screen_top = -3000 # Activation threshold
-var has_despawned = false
-var edge_push = 90 # Buffer for Collectable collision on edge
-var grace_count = 0 # Number of times grace period is applied
-var max_grace = 2 # Maximum number of grace periods allowed
-var directionals = 0 # 0 = none, 1 = L/R, 2 = U/D, 3 = Diagonals
-var stored_horizontal = 0 # Local variable for player direction, -1 for left, 1 for right, 0 for none
-var stored_vertical = 0 # Local variable for player direction,-1 for down, 1 for up, 0 for none
-var stored_difficulty = 0 # Local variable for current difficulty
+var is_active: bool = false
+var screen_top: int = -3000 # Activation threshold
+var has_despawned: bool = false
+var edge_push: int = 90 # Buffer for Collectable collision on edge
+var grace_count: int = 0 # Number of times grace period is applied
+var max_grace: int = 2 # Maximum number of grace periods allowed
+var directionals: int = 0 # 0 = none, 1 = L/R, 2 = U/D, 3 = Diagonals
+var stored_horizontal: int = 0 # Local variable for player direction, -1 for left, 1 for right, 0 for none
+var stored_vertical: int = 0 # Local variable for player direction,-1 for down, 1 for up, 0 for none
+var stored_difficulty: int = 0 # Local variable for current difficulty
 
 # Preload the petal scene
 var no_direction: PackedScene = preload("res://nd_petal.tscn")
@@ -21,7 +21,7 @@ var ud_petal: PackedScene = preload("res://ud_petal.tscn")
 var diag_petal: PackedScene = preload("res://diag_petal.tscn")
 
 # Function to spawn petals when collectable becomes active
-func activate_petals():
+func activate_petals() -> void:
 	if directionals == 0:  # No Directions petals
 		var petal_instance = no_direction.instantiate() as Node2D
 		if petal_instance:
@@ -53,7 +53,7 @@ func player_directions(horizontal_direction: Variant, vertical_direction: Varian
 func _on_progression(difficulty: Variant) -> void: # Connected from Main.gd
 	stored_difficulty = difficulty
 
-func _on_directionals_select():
+func _on_directionals_select() -> void:
 	# Define thresholds for each type of directionals
 	# These thresholds and probabilities can be adjusted as needed
 	var no_direction_prob = clamp(1.0 - stored_difficulty * 0.05, 0.1, 1.0)  # Probability decreases with difficulty
@@ -75,7 +75,7 @@ func _on_directionals_select():
 	else:
 		directionals = 3  # Diagonals
 
-func decide_direction():
+func decide_direction() -> void:
 	# Randomly pick a direction based on the directional type
 	if directionals == 1:  # L/R
 		if randf() < 0.5:
@@ -99,12 +99,12 @@ func decide_direction():
 			$Arrow.rotation_degrees = 135  # Upper-right
 
 
-func _ready():
-	var player = get_node("../Ghost") # Directionals node connection
+func _ready() -> void:
+	var player := get_node("../Ghost") # Directionals node connection
 	if player:
 		player.connect("directions", Callable(self, "player_directions"))
 		
-	var main = get_node("..") # Difficulty node connection
+	var main := get_node("..") # Difficulty node connection
 	if main:
 		main.connect("progress", Callable(self, "_on_progression"))
 	
@@ -126,8 +126,8 @@ func _ready():
 		add_child(timer)
 
 
-func _process(delta: float):
-	var timer = get_node("activation_delay_timer")
+func _process(delta: float) -> void:
+	var timer := get_node("activation_delay_timer")
 	var overlapping_bodies = $GhostBallCollision.get_overlapping_bodies()
 
 	if directionals > 0:
@@ -149,19 +149,19 @@ func _process(delta: float):
 		else:
 			return
 
-var fall_speed = randi_range(400, 800)
-var side_speed = Vector2(randf_range(-1000, 1000), 0) # Random horizontal speed
+var fall_speed := randi_range(400, 800)
+var side_speed := Vector2(randf_range(-1000, 1000), 0) # Random horizontal speed
 
-func _physics_process(delta):
-	var camera = get_viewport().get_camera_2d()
+func _physics_process(delta) -> void:
+	var camera := get_viewport().get_camera_2d()
 
 	if camera != null:
-		var viewport_size = get_viewport_rect().size / camera.zoom
-		var camera_position = camera.global_position
-		var left_edge = camera_position.x - (viewport_size.x / 2)
-		var right_edge = camera_position.x + (viewport_size.x / 2)
-		var top_edge = camera_position.y - (viewport_size.y / 2)
-		var bottom_edge = camera_position.y + (viewport_size.y / 2)
+		var viewport_size := get_viewport_rect().size / camera.zoom
+		var camera_position := camera.global_position
+		var left_edge := camera_position.x - (viewport_size.x / 2)
+		var right_edge := camera_position.x + (viewport_size.x / 2)
+		var top_edge := camera_position.y - (viewport_size.y / 2)
+		var bottom_edge := camera_position.y + (viewport_size.y / 2)
 
 		# Bounce off left and right screen edges
 		if position.x <= left_edge + edge_push or position.x >= right_edge - edge_push:
@@ -173,7 +173,7 @@ func _physics_process(delta):
 	position.y += fall_speed * delta
 	position += side_speed * delta
 
-func _on_Area_2D_body_entered(body):
+func _on_Area_2D_body_entered(body) -> void:
 	if body.name == "Ghost" and !is_active and directionals > 0:
 		_on_activation_delay()
 	elif body.name == "Ghost" and is_active and directionals == 0:
@@ -225,20 +225,20 @@ func _on_Area_2D_body_entered(body):
 	elif body.is_in_group("Collectable"):
 		pass
 
-func _on_floor_margin_area_entered(area: Area2D):
+func _on_floor_margin_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Floor") and !has_despawned and is_active:
 		has_despawned = true
 		emit_signal("missed")
 		queue_free()
 
-func _on_activation_delay():
+func _on_activation_delay() -> void:
 	if grace_count < max_grace and directionals > 0:
 		$activation_delay_timer.start()
 		grace_count += 1
 	else:
 		is_active = true
 
-func _on_activation_timeout():
+func _on_activation_timeout() -> void:
 	var overlapping_bodies = $GhostBallCollision.get_overlapping_bodies()
 	for body in overlapping_bodies:
 		if body.name == "Ghost":

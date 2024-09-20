@@ -3,17 +3,17 @@ extends Node2D
 @onready var player = $"../Ghost"
 @onready var off_screen_indicator = $"."  # Reference your indicator sprite
 
-var top_edge = 0  # Declare top_edge as a global variable
+var top_edge: int = 0  # Declare top_edge as a global variable
 
-func _ready():
+func _ready() -> void:
 	# Check if player and indicator exist
 	if player == null:
 		print("Player node not found!")
 	if off_screen_indicator == null:
 		print("Indicator node not found!")
 
-func _physics_process(delta):
-	var camera = get_viewport().get_camera_2d()
+func _physics_process(delta) -> void:
+	var camera := get_viewport().get_camera_2d()
 
 	if camera != null:
 		var viewport_size = get_viewport_rect().size / camera.zoom

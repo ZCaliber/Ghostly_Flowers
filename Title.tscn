@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ct7njfoyl3r6i"]
+[gd_scene load_steps=6 format=3 uid="uid://ct7njfoyl3r6i"]
 
 [ext_resource type="Script" path="res://title.gd" id="1_10teu"]
 [ext_resource type="Texture2D" uid="uid://c538ovbml6xvd" path="res://Sprites/Title1.png" id="1_qllui"]
 [ext_resource type="Texture2D" uid="uid://s74ix6if7hq1" path="res://Sprites/GhostBall.png" id="2_m7ig6"]
 [ext_resource type="Script" path="res://the_o.gd" id="3_jqo55"]
+[ext_resource type="Texture2D" uid="uid://cff7nyqaq60qi" path="res://Sprites/TitleGhosty.png" id="5_r6hdx"]
 
 [node name="Title" type="Control"]
 layout_mode = 3
@@ -45,6 +46,12 @@ position = Vector2(504.692, 319.542)
 scale = Vector2(0.13, 0.13)
 texture = ExtResource("2_m7ig6")
 script = ExtResource("3_jqo55")
+
+[node name="GhostyTitle" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(208.079, 382.979)
+texture = ExtResource("5_r6hdx")
+flip_h = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]

@@ -1,12 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://cn8hvjdysb0ua"]
+[gd_scene load_steps=16 format=4 uid="uid://cn8hvjdysb0ua"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_d6stb"]
 [ext_resource type="Texture2D" uid="uid://dv4ao1qsuwolg" path="res://Sprites/OIG2.jpg" id="2_ltrpo"]
 [ext_resource type="AudioStream" uid="uid://b0j4uonjmq6kf" path="res://Sounds/Collect.mp3" id="2_ymxuu"]
-[ext_resource type="Texture2D" uid="uid://dphx1gb8bf8xo" path="res://Sprites/GhostBlock1.png" id="3_fcw5n"]
 [ext_resource type="AudioStream" uid="uid://v66nw4jxqv8h" path="res://Sounds/Gimmick.mp3" id="3_uml0h"]
-[ext_resource type="Texture2D" uid="uid://ccvteosbr7ptx" path="res://GhostBlock1.png" id="4_08lbw"]
 [ext_resource type="Script" path="res://collectable_spawner.gd" id="4_si31q"]
+[ext_resource type="PackedScene" uid="uid://cxgnyliibx3g8" path="res://ghost_block.tscn" id="5_o76tx"]
 [ext_resource type="PackedScene" uid="uid://dfcb5odbb540n" path="res://ghost.tscn" id="5_qukfr"]
 [ext_resource type="PackedScene" uid="uid://dl5mrqij5tmti" path="res://indicator.tscn" id="6_xmbo5"]
 
@@ -19,18 +18,12 @@ size = Vector2(89.3341, 50.0677)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ublvc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k7ca8"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_patlp"]
-texture = ExtResource("4_08lbw")
-margins = Vector2i(3, 0)
-texture_region_size = Vector2i(17, 17)
-0:2/size_in_atlas = Vector2i(17, 16)
-0:2/0 = 0
-16:1/0 = 0
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_548j4"]
+scenes/1/scene = ExtResource("5_o76tx")
 
 [sub_resource type="TileSet" id="TileSet_chcre"]
-sources/0 = SubResource("TileSetAtlasSource_patlp")
+tile_size = Vector2i(279, 278)
+sources/1 = SubResource("TileSetScenesCollectionSource_548j4")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ycfh"]
 
@@ -110,284 +103,9 @@ position = Vector2(0, 82)
 scale = Vector2(330.43, 5)
 shape = SubResource("RectangleShape2D_ublvc")
 
-[node name="GhostBlock1" type="StaticBody2D" parent="."]
-position = Vector2(-1, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock1"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock1"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock2" type="StaticBody2D" parent="."]
-position = Vector2(287, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock2"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock2"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock3" type="StaticBody2D" parent="."]
-position = Vector2(575, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock3"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock3"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock4" type="StaticBody2D" parent="."]
-position = Vector2(-289, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock4"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock4"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock5" type="StaticBody2D" parent="."]
-position = Vector2(-577, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock5"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock5"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
 [node name="Play Area" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAEAAQAAAAAAAQABAAEAAQAAAAAAAQD//wEAAQAAAAAAAQACAAEAAQAAAAAAAQADAAEAAQAAAAAAAQAEAAEAAQAAAAAAAQAFAAEAAQAAAAAAAQAGAAEAAQAAAAAAAQAHAAEAAQAAAAAAAQAIAAEAAQAAAAAAAQAJAAEAAQAAAAAAAQAKAAEAAQAAAAAAAQALAAEAAQAAAAAAAQD+/wEAAQAAAAAAAQD9/wEAAQAAAAAAAQD8/wEAAQAAAAAAAQD7/wEAAQAAAAAAAQD6/wEAAQAAAAAAAQD5/wEAAQAAAAAAAQD4/wEAAQAAAAAAAQD3/wEAAQAAAAAAAQD2/wEAAQAAAAAAAQD1/wEAAQAAAAAAAQD0/wEAAQAAAAAAAQA=")
 tile_set = SubResource("TileSet_chcre")
-
-[node name="GhostBlock6" type="StaticBody2D" parent="."]
-position = Vector2(-1441, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock6"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock6"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock7" type="StaticBody2D" parent="."]
-position = Vector2(-1153, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock7"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock7"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock8" type="StaticBody2D" parent="."]
-position = Vector2(-865, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock8"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock8"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock9" type="StaticBody2D" parent="."]
-position = Vector2(-1729, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock9"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock9"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock10" type="StaticBody2D" parent="."]
-position = Vector2(-2017, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock10"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock10"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock11" type="StaticBody2D" parent="."]
-position = Vector2(1439, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock11"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock11"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock12" type="StaticBody2D" parent="."]
-position = Vector2(1727, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock12"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock12"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock13" type="StaticBody2D" parent="."]
-position = Vector2(2015, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock13"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock13"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock14" type="StaticBody2D" parent="."]
-position = Vector2(1151, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock14"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock14"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock15" type="StaticBody2D" parent="."]
-position = Vector2(863, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock15"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock15"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock16" type="StaticBody2D" parent="."]
-position = Vector2(-2881, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock16"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock16"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock17" type="StaticBody2D" parent="."]
-position = Vector2(-2593, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock17"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock17"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock18" type="StaticBody2D" parent="."]
-position = Vector2(-2305, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock18"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock18"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock19" type="StaticBody2D" parent="."]
-position = Vector2(-3169, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock19"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock19"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock20" type="StaticBody2D" parent="."]
-position = Vector2(2879, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock20"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock20"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock21" type="StaticBody2D" parent="."]
-position = Vector2(3167, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock21"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock21"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock23" type="StaticBody2D" parent="."]
-position = Vector2(2591, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock23"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock23"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
-
-[node name="GhostBlock24" type="StaticBody2D" parent="."]
-position = Vector2(2303, 418)
-
-[node name="Sprite2D" type="Sprite2D" parent="GhostBlock24"]
-texture = ExtResource("3_fcw5n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostBlock24"]
-visible = false
-position = Vector2(-1, 16)
-scale = Vector2(14.39, 13.035)
-shape = SubResource("RectangleShape2D_k7ca8")
 
 [node name="Ghost" parent="." instance=ExtResource("5_qukfr")]
 position = Vector2(0, 148)
