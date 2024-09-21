@@ -8,9 +8,9 @@ var top_edge: int = 0  # Declare top_edge as a global variable
 func _ready() -> void:
 	# Check if player and indicator exist
 	if player == null:
-		print("Player node not found!")
+		push_error("Player node not found!")
 	if off_screen_indicator == null:
-		print("Indicator node not found!")
+		push_error("Indicator node not found!")
 
 func _physics_process(delta) -> void:
 	var camera := get_viewport().get_camera_2d()

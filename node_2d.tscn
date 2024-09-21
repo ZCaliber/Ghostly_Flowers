@@ -1,13 +1,216 @@
-[gd_scene load_steps=16 format=4 uid="uid://cn8hvjdysb0ua"]
+[gd_scene load_steps=25 format=4 uid="uid://cn8hvjdysb0ua"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_d6stb"]
 [ext_resource type="Texture2D" uid="uid://dv4ao1qsuwolg" path="res://Sprites/OIG2.jpg" id="2_ltrpo"]
+[ext_resource type="FontFile" uid="uid://c1vjcmwxavnnr" path="res://Sprites/Ghosties-Regular.ttf" id="2_oq568"]
+[ext_resource type="PackedScene" uid="uid://bk1qt62cc14bb" path="res://pause_menu.tscn" id="2_uoayi"]
 [ext_resource type="AudioStream" uid="uid://b0j4uonjmq6kf" path="res://Sounds/Collect.mp3" id="2_ymxuu"]
 [ext_resource type="AudioStream" uid="uid://v66nw4jxqv8h" path="res://Sounds/Gimmick.mp3" id="3_uml0h"]
 [ext_resource type="Script" path="res://collectable_spawner.gd" id="4_si31q"]
+[ext_resource type="Script" path="res://music.gd" id="5_8rs73"]
 [ext_resource type="PackedScene" uid="uid://cxgnyliibx3g8" path="res://ghost_block.tscn" id="5_o76tx"]
 [ext_resource type="PackedScene" uid="uid://dfcb5odbb540n" path="res://ghost.tscn" id="5_qukfr"]
 [ext_resource type="PackedScene" uid="uid://dl5mrqij5tmti" path="res://indicator.tscn" id="6_xmbo5"]
+
+[sub_resource type="Animation" id="Animation_c7xn3"]
+resource_name = "ready_start_animation"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="Animation" id="Animation_qb0qx"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0wynx"]
+_data = {
+"RESET": SubResource("Animation_qb0qx"),
+"ready_start_animation": SubResource("Animation_c7xn3")
+}
+
+[sub_resource type="Animation" id="Animation_b1ias"]
+resource_name = "GhostTextAnimation"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GhostLabel:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GhostLabel:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GhostLabel:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GhostLabel:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="Animation" id="Animation_juuda"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GhostLabel:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GhostLabel:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GhostLabel:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GhostLabel:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yqbum"]
+_data = {
+"GhostTextAnimation": SubResource("Animation_b1ias"),
+"RESET": SubResource("Animation_juuda")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c08w0"]
 size = Vector2(89.3341, 50.0677)
@@ -30,15 +233,70 @@ sources/1 = SubResource("TileSetScenesCollectionSource_548j4")
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_d6stb")
 
+[node name="show_ready" type="AnimationPlayer" parent="."]
+root_node = NodePath("../ReadyLabel")
+libraries = {
+"": SubResource("AnimationLibrary_0wynx")
+}
+
+[node name="fade_ghost" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yqbum")
+}
+
+[node name="GhostLabel" type="RichTextLabel" parent="."]
+visible = false
+offset_left = -1270.0
+offset_top = -1369.0
+offset_right = 1555.0
+offset_bottom = -270.0
+rotation = -0.225147
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 285
+theme_override_constants/shadow_offset_y = 0
+theme_override_fonts/normal_font = ExtResource("2_oq568")
+theme_override_font_sizes/normal_font_size = 581
+text = "GHOST!"
+
+[node name="ReadyLabel" type="RichTextLabel" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 5
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -569.0
+offset_top = -1663.0
+offset_right = 726.0
+offset_bottom = -1119.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 30
+theme_override_font_sizes/normal_font_size = 366
+text = "Ready?"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_uoayi")]
+
 [node name="CollectSounds" type="AudioStreamPlayer" parent="." groups=["Sounds"]]
 stream = ExtResource("2_ymxuu")
 max_polyphony = 3
 
 [node name="Music" type="AudioStreamPlayer" parent="." groups=["Music"]]
+process_mode = 3
 stream = ExtResource("3_uml0h")
 volume_db = 5.0
 autoplay = true
 parameters/looping = true
+script = ExtResource("5_8rs73")
 
 [node name="ComboCounter" type="RichTextLabel" parent="."]
 visible = false
@@ -56,6 +314,7 @@ gravity_space_override = 3
 gravity = 2000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Gravity_area"]
+visible = false
 position = Vector2(0.108284, -16.1816)
 shape = SubResource("RectangleShape2D_c08w0")
 

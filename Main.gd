@@ -1,9 +1,11 @@
 extends Node
 
 var combo_counter: int = 0  # To track the current combo
-var combo_milestones := [10, 50]  # Add more as needed
+var combo_milestones := [10, 25, 50, 75, 100]  # Add more as needed
 var difficulty: int = 0 # Determines drop rate and types, tied to milestones achieved
 var milestone_increment: int = 50  # Amount to add for new milestones
+
+# Best: 755 combo 9-20-24
 
 @warning_ignore("unused_signal")
 signal progress(difficulty)
