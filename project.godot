@@ -15,6 +15,10 @@ run/main_scene="res://Title.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/resizable=false
+
 [global_group]
 
 Collectable="Indicates an entity is a collectable"

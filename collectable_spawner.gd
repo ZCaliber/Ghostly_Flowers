@@ -2,11 +2,12 @@ extends Area2D
 
 var Ghostball := preload("res://t_1_collectable.tscn")
 var SleepyBall := preload("res://sleepy_ball.tscn")
+var QueezeBall := preload("res://queezeball.tscn")
 var spawn_low: float = 1.25
 var spawn_high: float = 2.0
 var spawn_interval := randf_range(spawn_low, spawn_high)
 var local_difficulty: int = 0
-var special_collectables = [SleepyBall]  # Add more special collectables here
+var special_collectables = [SleepyBall, QueezeBall]  # Add more special collectables here
 
 @onready var main_scene: Node = null
 

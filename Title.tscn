@@ -1,10 +1,156 @@
-[gd_scene load_steps=6 format=3 uid="uid://ct7njfoyl3r6i"]
+[gd_scene load_steps=10 format=3 uid="uid://ct7njfoyl3r6i"]
 
 [ext_resource type="Script" path="res://title.gd" id="1_10teu"]
 [ext_resource type="Texture2D" uid="uid://c538ovbml6xvd" path="res://Sprites/Title1.png" id="1_qllui"]
+[ext_resource type="Texture2D" uid="uid://b3kdev73l3uqm" path="res://Sprites/OIG3.2OEMPaA7LFczhfu6tY.jpg" id="2_jt7ws"]
 [ext_resource type="Texture2D" uid="uid://s74ix6if7hq1" path="res://Sprites/GhostBall.png" id="2_m7ig6"]
 [ext_resource type="Script" path="res://the_o.gd" id="3_jqo55"]
 [ext_resource type="Texture2D" uid="uid://cff7nyqaq60qi" path="res://Sprites/TitleGhosty.png" id="5_r6hdx"]
+
+[sub_resource type="Animation" id="Animation_ckgm1"]
+resource_name = "Slide"
+length = 5.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GhostyTitle:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GhostyTitle:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GhostyTitle:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GhostyTitle:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 5)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GhostyTitle:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-100, -0.25, 0, 0.25, 0, 318, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 5)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GhostyTitle:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(424, -0.25, 0, 0.25, 0, 424, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 5)
+}
+
+[sub_resource type="Animation" id="Animation_glwpr"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GhostyTitle:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GhostyTitle:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GhostyTitle:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GhostyTitle:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GhostyTitle:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-100, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GhostyTitle:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(424, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_myh81"]
+_data = {
+"RESET": SubResource("Animation_glwpr"),
+"Slide": SubResource("Animation_ckgm1")
+}
 
 [node name="Title" type="Control"]
 layout_mode = 3
@@ -13,7 +159,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_top = NodePath("MarginContainer/VBoxContainer/Quit")
+focus_neighbor_bottom = NodePath("MarginContainer/VBoxContainer/Start")
+focus_mode = 2
 script = ExtResource("1_10teu")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -4
+position = Vector2(579.094, 359.319)
+scale = Vector2(1.165, 1.165)
+texture = ExtResource("2_jt7ws")
+
+[node name="Placeholder Background" type="ColorRect" parent="."]
+visible = false
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.129558, 0.129558, 0.129558, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -21,20 +187,31 @@ offset_left = 549.032
 offset_top = 386.219
 offset_right = 619.032
 offset_bottom = 487.219
+focus_neighbor_top = NodePath("VBoxContainer/Quit")
+focus_neighbor_bottom = NodePath("VBoxContainer/Start")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("Quit")
+focus_neighbor_bottom = NodePath("Start")
+focus_mode = 2
 
 [node name="Start" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 0, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0, 1, 1)
 text = "Start"
 
 [node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 0, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0, 1, 1)
 text = "Options"
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 0, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0, 1, 1)
 text = "Quit"
 
 [node name="Title" type="Sprite2D" parent="."]
@@ -48,11 +225,22 @@ texture = ExtResource("2_m7ig6")
 script = ExtResource("3_jqo55")
 
 [node name="GhostyTitle" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 z_index = -1
-position = Vector2(208.079, 382.979)
+position = Vector2(-100, 424)
 texture = ExtResource("5_r6hdx")
 flip_h = true
+
+[node name="AnimationTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="GhostyAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_myh81")
+}
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="timeout" from="AnimationTimer" to="." method="_on_animation_timer_timeout"]

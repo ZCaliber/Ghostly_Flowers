@@ -1,16 +1,64 @@
-[gd_scene load_steps=25 format=4 uid="uid://cn8hvjdysb0ua"]
+[gd_scene load_steps=27 format=4 uid="uid://cn8hvjdysb0ua"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_d6stb"]
+[ext_resource type="AudioStream" uid="uid://bfwp0r7l1iqt" path="res://Sounds/Ready.mp3" id="2_0yl6t"]
 [ext_resource type="Texture2D" uid="uid://dv4ao1qsuwolg" path="res://Sprites/OIG2.jpg" id="2_ltrpo"]
 [ext_resource type="FontFile" uid="uid://c1vjcmwxavnnr" path="res://Sprites/Ghosties-Regular.ttf" id="2_oq568"]
 [ext_resource type="PackedScene" uid="uid://bk1qt62cc14bb" path="res://pause_menu.tscn" id="2_uoayi"]
 [ext_resource type="AudioStream" uid="uid://b0j4uonjmq6kf" path="res://Sounds/Collect.mp3" id="2_ymxuu"]
+[ext_resource type="AudioStream" uid="uid://ccp2n87wwirju" path="res://Sounds/Ghost.mp3" id="3_t05mt"]
 [ext_resource type="AudioStream" uid="uid://v66nw4jxqv8h" path="res://Sounds/Gimmick.mp3" id="3_uml0h"]
 [ext_resource type="Script" path="res://collectable_spawner.gd" id="4_si31q"]
 [ext_resource type="Script" path="res://music.gd" id="5_8rs73"]
 [ext_resource type="PackedScene" uid="uid://cxgnyliibx3g8" path="res://ghost_block.tscn" id="5_o76tx"]
 [ext_resource type="PackedScene" uid="uid://dfcb5odbb540n" path="res://ghost.tscn" id="5_qukfr"]
 [ext_resource type="PackedScene" uid="uid://dl5mrqij5tmti" path="res://indicator.tscn" id="6_xmbo5"]
+
+[sub_resource type="Animation" id="Animation_qb0qx"]
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
 
 [sub_resource type="Animation" id="Animation_c7xn3"]
 resource_name = "ready_start_animation"
@@ -57,53 +105,6 @@ tracks/3/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1)
-}
-
-[sub_resource type="Animation" id="Animation_qb0qx"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate:r")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:modulate:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0wynx"]
@@ -233,6 +234,12 @@ sources/1 = SubResource("TileSetScenesCollectionSource_548j4")
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_d6stb")
 
+[node name="ReadySound" type="AudioStreamPlayer" parent="." groups=["Sounds"]]
+stream = ExtResource("2_0yl6t")
+
+[node name="GhostSound" type="AudioStreamPlayer" parent="." groups=["Sounds"]]
+stream = ExtResource("3_t05mt")
+
 [node name="show_ready" type="AnimationPlayer" parent="."]
 root_node = NodePath("../ReadyLabel")
 libraries = {
@@ -294,7 +301,6 @@ max_polyphony = 3
 process_mode = 3
 stream = ExtResource("3_uml0h")
 volume_db = 5.0
-autoplay = true
 parameters/looping = true
 script = ExtResource("5_8rs73")
 

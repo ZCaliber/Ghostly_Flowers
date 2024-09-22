@@ -9,15 +9,37 @@ var milestone_increment: int = 50  # Amount to add for new milestones
 
 @warning_ignore("unused_signal")
 signal progress(difficulty)
+signal game_start
 
 @onready var combo_counter_label: RichTextLabel = $ComboCounter
 
-func _process(_delta: float) -> void:
-	emit_signal("progress", difficulty) # Emit the difficulty value with the signal
+func start_game() -> void:
+	# Logic to start the main gameplay
+	get_tree().paused = false  # Unpause the game (if previously paused)
 
 func _ready() -> void:
+	$ReadySound.play()
+	$show_ready.play("ready_start_animation")
+	
+	# Wait for the 'Ready' animation to finish
+	await $show_ready.animation_finished
+	$ReadyLabel.visible = false  # Hide Ready text
+
+	# Show 'Ghost!' text and play sound
+	$GhostLabel.visible = true
+	$GhostSound.play()
+	$Music.play()  # Play music
+	$fade_ghost.play("GhostTextAnimation")
+
+	# Wait for the 'Ghost!' sound to finish, then start the game
+	await $GhostSound.finished
+	start_game()
+
 	update_combo_label()
 	add_more_milestones(5, milestone_increment)  # Dynamically add 5 more milestones
+	
+func _process(_delta: float) -> void:
+	emit_signal("progress", difficulty) # Emit the difficulty value with the signal
 	
 # Function to dynamically add more milestones
 func add_more_milestones(count: int, increment: int) -> void:
