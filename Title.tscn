@@ -192,6 +192,15 @@ offset_right = 1039.0
 offset_bottom = 605.0
 color = Color(0.227451, 0.227451, 0.227451, 1)
 
+[node name="HSBacking" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 915.0
+offset_top = 32.0
+offset_right = 1095.0
+offset_bottom = 55.0
+color = Color(0.227451, 0.227451, 0.227451, 1)
+
 [node name="MarginContainerOptions" parent="." instance=ExtResource("3_s0dei")]
 layout_mode = 0
 offset_left = 651.918
@@ -201,10 +210,10 @@ offset_bottom = 591.939
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_left = 549.032
+offset_left = 535.032
 offset_top = 386.219
-offset_right = 619.032
-offset_bottom = 487.219
+offset_right = 635.032
+offset_bottom = 522.219
 focus_neighbor_top = NodePath("VBoxContainer/Quit")
 focus_neighbor_bottom = NodePath("VBoxContainer/Start")
 
@@ -225,6 +234,12 @@ layout_mode = 2
 theme_override_colors/font_hover_color = Color(1, 0, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 0, 1, 1)
 text = "Options"
+
+[node name="HowToPlay" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 0, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0, 1, 1)
+text = "How to play"
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -263,7 +278,52 @@ stream = ExtResource("7_wly7j")
 volume_db = 1.0
 autoplay = true
 
+[node name="HighscoreMarginBox" type="MarginContainer" parent="."]
+visible = false
+layout_direction = 2
+layout_mode = 1
+offset_left = 915.0
+offset_top = 30.0
+offset_right = 1095.0
+offset_bottom = 55.0
+
+[node name="Highscore" type="RichTextLabel" parent="HighscoreMarginBox"]
+layout_mode = 2
+text = "Highscore: "
+
+[node name="HTPBacking" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 263.0
+offset_top = 560.0
+offset_right = 936.0
+offset_bottom = 634.0
+color = Color(0.227451, 0.227451, 0.227451, 1)
+
+[node name="HowTo" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 263.0
+offset_top = 561.0
+offset_right = 935.0
+offset_bottom = 634.0
+text = "WASD or arrow keys to move. Collect flowers while moving in the direction(s) specified!
+Yes, you can fly!
+Music credits: Sim City (SNES) - Title, Gimmick! - Happy Birthday"
+
+[node name="ZCal" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 501.0
+offset_top = 607.0
+offset_right = 665.0
+offset_bottom = 654.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]Made by ZCaliber
+2024[/center]"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="timeout" from="AnimationTimer" to="." method="_on_animation_timer_timeout"]

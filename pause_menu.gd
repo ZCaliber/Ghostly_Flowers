@@ -5,6 +5,11 @@ var music_quiet: bool = false
 var options_open: bool = false
 
 func _ready() -> void:
+	if GlobalOptions.highscore != 0:
+		$Highscore.text = "Highscore: " + str(GlobalOptions.highscore)
+	else:
+		$HSBacking.visible = false
+		$Highscore.visible = false
 	resumey.grab_focus()
 		# Initialize sliders with the current volume levels from the global settings
 	$MarginContainerOptions/VBoxContainer/Music.value = GlobalOptions.music_volume
@@ -30,6 +35,12 @@ func resume() -> void:
 	$GhostyFadeIn.seek(0, true)  # Reset the animation to the start
 
 func pause() -> void:
+	if GlobalOptions.highscore != 0:
+		$Highscore.text = "Highscore: " + str(GlobalOptions.highscore)
+	else:
+		$HSBacking.visible = false
+		$Highscore.visible = false
+	
 	get_tree().paused = true
 	$GhostyDelay.start()  # Start the timer again
 	$AnimationPlayer.play("blur")

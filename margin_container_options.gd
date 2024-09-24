@@ -21,3 +21,11 @@ func _on_music_value_changed(value: float) -> void:
 func _on_sound_value_changed(value: float) -> void:
 	_on_SoundVolumeSlider_value_changed(value)
 	$TestPop.play()
+
+func _on_mute_music_toggled(toggled_on: bool) -> void:
+	GlobalOptions.music_muted = toggled_on
+	GlobalOptions.apply_volume_settings()  # Apply the change immediately
+
+func _on_mute_sounds_toggled(toggled_on: bool) -> void:
+	GlobalOptions.sound_muted = toggled_on
+	GlobalOptions.apply_volume_settings()  # Apply the change immediately

@@ -1,11 +1,17 @@
 extends Control
 @onready var starty = $MarginContainer/VBoxContainer/Start
 var options_open = false
+var htp_open = false
 
 func _ready() -> void:
+	GlobalOptions.load_highscore()
 	starty.grab_focus()
 	$AnimationTimer.start()
 	GlobalOptions.apply_volume_settings()
+	if GlobalOptions.highscore != 0:
+		$HSBacking.visible = true
+		$HighscoreMarginBox.visible = true
+		$HighscoreMarginBox/Highscore.text = "Highscore: " + str(GlobalOptions.highscore)
 
 func _on_start_pressed() -> void:
 	get_tree().change_scene_to_file("res://node_2d.tscn")
@@ -25,3 +31,15 @@ func _on_quit_pressed() -> void:
 
 func _on_animation_timer_timeout() -> void:
 	$GhostyAnimation.play("Slide")
+
+func _on_how_to_play_pressed() -> void:
+	if htp_open == false:
+		$HTPBacking.visible = true
+		$HowTo.visible = true
+		htp_open = true
+		$ZCal.visible = false
+	else:
+		$HTPBacking.visible = false
+		$HowTo.visible = false
+		htp_open = false
+		$ZCal.visible = true

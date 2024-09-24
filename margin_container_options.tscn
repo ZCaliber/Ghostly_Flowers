@@ -54,3 +54,5 @@ volume_db = -5.0
 
 [connection signal="value_changed" from="VBoxContainer/Music" to="." method="_on_music_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Sound" to="." method="_on_sound_value_changed"]
+[connection signal="toggled" from="VBoxContainer/Mute Music" to="." method="_on_mute_music_toggled"]
+[connection signal="toggled" from="VBoxContainer/Mute Sounds" to="." method="_on_mute_sounds_toggled"]

@@ -142,14 +142,25 @@ func _on_collectable_collected(collectable_position: Vector2) -> void:
 		# show_special_combo_effect(combo_counter)
 
 func reset_combo() -> void:
-	# print("Combo reset!")
-	combo_counter = 0  # Reset combo score
+	# Check if current combo_counter exceeds highscore, then update and save the highscore
+	if combo_counter > GlobalOptions.highscore:
+		GlobalOptions.highscore = combo_counter
+		GlobalOptions.save_highscore(GlobalOptions.highscore)
+	
+	# Reset the combo score and difficulty
+	combo_counter = 0  
 	difficulty = 0
+	
+	# Update the combo label to reflect the reset
 	update_combo_label()
+	
+	# Play a "miss" sound or audio feedback
 	miss_audio()
-	 # Despawn all current collectables
+	
+	# Despawn all current collectables in the scene
 	for collectable in get_tree().get_nodes_in_group("Collectable"):
 		collectable.queue_free()  # Safely remove all collectable nodes
+
 
 # func show_special_combo_effect(combo):
 	# print("Combo Milestone Reached: " + str(combo))

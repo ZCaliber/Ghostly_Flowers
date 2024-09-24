@@ -4,6 +4,10 @@ extends Node
 @export var sound_volume: float = 2.0
 @export var music_muted: bool = false
 @export var sound_muted: bool = false
+@export var highscore: int
+var current_dir = OS.get_executable_path().get_base_dir()
+var savefile = current_dir + "/savedata.save"
+
 
 # Store the original dB values to adjust relatively
 var original_music_dbs: Dictionary = {}
@@ -33,3 +37,16 @@ func apply_volume_settings():
 		else:
 			# Adjust relative to the original db value
 			node.volume_db = original_sound_dbs[node] + 10 * log(sound_volume)
+
+# Save highscore logic
+func save_highscore(highscore):
+	var file = FileAccess.open(savefile, FileAccess.WRITE_READ)
+	file.store_32(highscore)
+	
+# Load highscore logic
+func load_highscore():
+	var file = FileAccess.open(savefile, FileAccess.READ)
+	if FileAccess.file_exists(savefile):
+		highscore = file.get_32()
+	else:
+		push_error("File system error!")
