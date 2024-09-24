@@ -1,11 +1,82 @@
-[gd_scene load_steps=10 format=3 uid="uid://ct7njfoyl3r6i"]
+[gd_scene load_steps=12 format=3 uid="uid://ct7njfoyl3r6i"]
 
 [ext_resource type="Script" path="res://title.gd" id="1_10teu"]
 [ext_resource type="Texture2D" uid="uid://c538ovbml6xvd" path="res://Sprites/Title1.png" id="1_qllui"]
 [ext_resource type="Texture2D" uid="uid://b3kdev73l3uqm" path="res://Sprites/OIG3.2OEMPaA7LFczhfu6tY.jpg" id="2_jt7ws"]
 [ext_resource type="Texture2D" uid="uid://s74ix6if7hq1" path="res://Sprites/GhostBall.png" id="2_m7ig6"]
 [ext_resource type="Script" path="res://the_o.gd" id="3_jqo55"]
+[ext_resource type="PackedScene" uid="uid://r7cq2h8ludm4" path="res://margin_container_options.tscn" id="3_s0dei"]
 [ext_resource type="Texture2D" uid="uid://cff7nyqaq60qi" path="res://Sprites/TitleGhosty.png" id="5_r6hdx"]
+[ext_resource type="AudioStream" uid="uid://cfllfnc2p45gp" path="res://Sounds/SimCity (SNES) Remastered - Title.mp3" id="7_wly7j"]
+
+[sub_resource type="Animation" id="Animation_glwpr"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GhostyTitle:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GhostyTitle:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GhostyTitle:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GhostyTitle:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GhostyTitle:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-100, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GhostyTitle:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(424, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_ckgm1"]
 resource_name = "Slide"
@@ -77,75 +148,6 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 5)
 }
 
-[sub_resource type="Animation" id="Animation_glwpr"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GhostyTitle:modulate:r")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GhostyTitle:modulate:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GhostyTitle:modulate:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("GhostyTitle:modulate:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GhostyTitle:position:x")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-100, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/5/type = "bezier"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("GhostyTitle:position:y")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(424, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_myh81"]
 _data = {
 "RESET": SubResource("Animation_glwpr"),
@@ -180,6 +182,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.129558, 0.129558, 0.129558, 1)
+
+[node name="Backing" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 636.0
+offset_top = 377.0
+offset_right = 1039.0
+offset_bottom = 605.0
+color = Color(0.227451, 0.227451, 0.227451, 1)
+
+[node name="MarginContainerOptions" parent="." instance=ExtResource("3_s0dei")]
+layout_mode = 0
+offset_left = 651.918
+offset_top = 384.939
+offset_right = 1028.92
+offset_bottom = 591.939
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -232,13 +250,18 @@ texture = ExtResource("5_r6hdx")
 flip_h = true
 
 [node name="AnimationTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 10.445
 one_shot = true
 
 [node name="GhostyAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_myh81")
 }
+
+[node name="TitleMusic" type="AudioStreamPlayer" parent="." groups=["Music"]]
+stream = ExtResource("7_wly7j")
+volume_db = 1.0
+autoplay = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]

@@ -21,6 +21,8 @@ func _ready() -> void:
 	$ReadySound.play()
 	$show_ready.play("ready_start_animation")
 	
+	GlobalOptions.apply_volume_settings()
+	
 	# Wait for the 'Ready' animation to finish
 	await $show_ready.animation_finished
 	$ReadyLabel.visible = false  # Hide Ready text
@@ -155,12 +157,11 @@ func reset_combo() -> void:
 
 func collection_audio() -> void:
 	var Collect := load("res://Sounds/Collect.mp3") as AudioStream
-	var Milestone := load("res://Sounds/Milestone.mp3") as AudioStream
 	
 	# Check if the current combo counter is in the milestone array
 	if combo_counter in combo_milestones:
-		$CollectSounds.stream = Milestone # Set the stream to milestone sound
-		$CollectSounds.play() # Play the milestone sound
+		$MilestoneSound.play()
+		
 	else:
 		$CollectSounds.stream = Collect # Set the regular collection sound
 		$CollectSounds.play() # Play the collect sound

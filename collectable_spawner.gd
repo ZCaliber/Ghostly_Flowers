@@ -59,4 +59,4 @@ func _spawn_collectable() -> void:
 		# Call the Main script function to connect signals for this collectable
 		main_scene.on_collectable_spawned(collectable)
 	else:
-		print("Shape is not RectangleShape2D")
+		push_error("Shape is not RectangleShape2D!")

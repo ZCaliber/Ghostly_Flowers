@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://cn8hvjdysb0ua"]
+[gd_scene load_steps=28 format=4 uid="uid://cn8hvjdysb0ua"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_d6stb"]
 [ext_resource type="AudioStream" uid="uid://bfwp0r7l1iqt" path="res://Sounds/Ready.mp3" id="2_0yl6t"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cxgnyliibx3g8" path="res://ghost_block.tscn" id="5_o76tx"]
 [ext_resource type="PackedScene" uid="uid://dfcb5odbb540n" path="res://ghost.tscn" id="5_qukfr"]
 [ext_resource type="PackedScene" uid="uid://dl5mrqij5tmti" path="res://indicator.tscn" id="6_xmbo5"]
+[ext_resource type="AudioStream" uid="uid://dr7nl5hb3txgd" path="res://Sounds/Milestone.mp3" id="7_mjn8h"]
 
 [sub_resource type="Animation" id="Animation_qb0qx"]
 tracks/0/type = "bezier"
@@ -236,9 +237,11 @@ script = ExtResource("1_d6stb")
 
 [node name="ReadySound" type="AudioStreamPlayer" parent="." groups=["Sounds"]]
 stream = ExtResource("2_0yl6t")
+volume_db = 1.0
 
 [node name="GhostSound" type="AudioStreamPlayer" parent="." groups=["Sounds"]]
 stream = ExtResource("3_t05mt")
+volume_db = 1.0
 
 [node name="show_ready" type="AnimationPlayer" parent="."]
 root_node = NodePath("../ReadyLabel")
@@ -295,12 +298,16 @@ text = "Ready?"
 
 [node name="CollectSounds" type="AudioStreamPlayer" parent="." groups=["Sounds"]]
 stream = ExtResource("2_ymxuu")
-max_polyphony = 3
+volume_db = -5.0
+max_polyphony = 4
+
+[node name="MilestoneSound" type="AudioStreamPlayer" parent="." groups=["Sounds"]]
+stream = ExtResource("7_mjn8h")
 
 [node name="Music" type="AudioStreamPlayer" parent="." groups=["Music"]]
 process_mode = 3
 stream = ExtResource("3_uml0h")
-volume_db = 5.0
+volume_db = -1.0
 parameters/looping = true
 script = ExtResource("5_8rs73")
 
@@ -349,7 +356,7 @@ position = Vector2(-3290, -1788)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounding_left"]
 position = Vector2(-11, -11)
-scale = Vector2(1, 210)
+scale = Vector2(1, 1e+06)
 shape = SubResource("RectangleShape2D_6v113")
 
 [node name="Bounding_right" type="StaticBody2D" parent="."]
@@ -357,7 +364,7 @@ position = Vector2(-3249, -1788)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounding_right"]
 position = Vector2(6550, -16)
-scale = Vector2(1, 210)
+scale = Vector2(1, 1e+06)
 shape = SubResource("RectangleShape2D_6v113")
 
 [node name="Floor Margin" type="Area2D" parent="." groups=["Floor"]]

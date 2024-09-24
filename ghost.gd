@@ -43,13 +43,13 @@ func _process(delta: float) -> void:
 	# Determine animation state based on velocity
 	if velocity.y > 3000:
 		# Falling state
-		set_animation_state_dropping()
+		_set_animation_state_dropping()
 	elif abs(velocity.x) > SPEED + 10:
 		# Moving state
-		set_animation_state_moving()
+		_set_animation_state_moving()
 	else:
 		# Idle state
-		set_animation_state_idle()
+		_set_animation_state_idle()
 
 func _physics_process(delta: float) -> void:
 	# Handle input
@@ -149,20 +149,20 @@ func _handle_horizontal_movement(delta: float) -> void:
 		velocity.x = 0
 
 # Animation state functions
-func set_animation_state_moving() -> void:
+func _set_animation_state_moving() -> void:
 	$Sprite.texture = sprite_blank
 	$Eyes.texture = eyes_cla
 	$Mouth.texture = mouth_open
 	$Mouth.visible = true
 	$Blush.texture = blush_normal
 
-func set_animation_state_dropping() -> void:
+func _set_animation_state_dropping() -> void:
 	$Sprite.texture = sprite_blank_drop
 	$Eyes.texture = eyes_drop
 	$Mouth.visible = false
 	$Blush.texture = blush_mega
 
-func set_animation_state_idle() -> void:
+func _set_animation_state_idle() -> void:
 	$Sprite.texture = sprite_blank
 	$Eyes.texture = eyes_open
 	$Mouth.texture = mouth_closed
