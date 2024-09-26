@@ -25,6 +25,9 @@ func adjust_spawn_times() -> void: # Decreases spawn intervals
 			spawn_high = 1.0
 
 func _ready() -> void:
+	set_process(false)
+	$"..".connect("spawn", Callable(self, "_on_start"))
+	await is_processing() == true
 	main_scene = get_parent()  # Reference to the Main scene or node
 	var spawn_timer := Timer.new()
 	spawn_timer.wait_time = spawn_interval
@@ -33,30 +36,38 @@ func _ready() -> void:
 	add_child(spawn_timer)
 
 func _spawn_collectable() -> void:
-	var collectable: Node2D
-	var chance := randf()
-	if local_difficulty > 4:
-		if chance < 0.75:  # 75% chance to spawn Ghostball
+	if is_processing() == false:
+		pass
+	else:
+		var collectable: Node2D
+		var chance := randf()
+		if local_difficulty > 4:
+			if chance < 0.75:  # 75% chance to spawn Ghostball
+				collectable = Ghostball.instantiate()
+			else:  # 25% chance to spawn a special collectable
+				var random_index = randi_range(0, special_collectables.size() - 1)
+				collectable = special_collectables[random_index].instantiate()
+		else:
 			collectable = Ghostball.instantiate()
-		else:  # 25% chance to spawn a special collectable
-			var random_index = randi_range(0, special_collectables.size() - 1)
-			collectable = special_collectables[random_index].instantiate()
-	else:
-		collectable = Ghostball.instantiate()
 
-	var area_shape = %CollisionShape2D.shape
-	if area_shape is RectangleShape2D:
-		var area_rect = %CollisionShape2D.scale
-		var global_area_position = %CollisionShape2D.global_position
+		var area_shape = %CollisionShape2D.shape
+		if area_shape is RectangleShape2D:
+			var area_rect = %CollisionShape2D.scale
+			var global_area_position = %CollisionShape2D.global_position
 
-		var x_min = global_area_position.x - (area_rect.x * 9.5)
-		var x_max = global_area_position.x + (area_rect.x * 9.5)
-		var x_position := randf_range(x_min, x_max)
+			var x_min = global_area_position.x - (area_rect.x * 9.5)
+			var x_max = global_area_position.x + (area_rect.x * 9.5)
+			var x_position := randf_range(x_min, x_max)
 
-		collectable.position = Vector2(x_position, global_position.y - 50)  # Adjust y to spawn off-screen if needed
-		get_parent().add_child(collectable)
+			collectable.position = Vector2(x_position, global_position.y - 50)  # Adjust y to spawn off-screen if needed
+			get_parent().add_child(collectable)
 
-		# Call the Main script function to connect signals for this collectable
-		main_scene.on_collectable_spawned(collectable)
-	else:
-		push_error("Shape is not RectangleShape2D!")
+			# Call the Main script function to connect signals for this collectable
+			main_scene.on_collectable_spawned(collectable)
+		else:
+			push_error("Shape is not RectangleShape2D!")
+
+func _on_start() -> void:
+	# Enable spawner after receiving the 'start' signal
+	set_process(true)
+	# print("Spawner ready!")

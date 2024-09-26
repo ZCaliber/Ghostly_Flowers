@@ -1,5 +1,8 @@
 extends Node
 
+signal start
+signal spawn
+
 var combo_counter: int = 0  # To track the current combo
 var combo_milestones := [10, 25, 50, 75, 100]  # Add more as needed
 var difficulty: int = 0 # Determines drop rate and types, tied to milestones achieved
@@ -18,6 +21,9 @@ func start_game() -> void:
 	get_tree().paused = false  # Unpause the game (if previously paused)
 
 func _ready() -> void:
+	$FadeIn.play("fade")
+	await $FadeIn.animation_finished
+	emit_signal("start")
 	$ReadySound.play()
 	$show_ready.play("ready_start_animation")
 	
@@ -35,6 +41,7 @@ func _ready() -> void:
 
 	# Wait for the 'Ghost!' sound to finish, then start the game
 	await $GhostSound.finished
+	emit_signal("spawn")
 	start_game()
 
 	update_combo_label()

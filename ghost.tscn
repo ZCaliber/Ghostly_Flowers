@@ -30,3 +30,6 @@ texture = ExtResource("5_pcof5")
 visible = false
 scale = Vector2(15.33, 15.33)
 shape = SubResource("RectangleShape2D_fsqxv")
+
+[node name="DropChecker" type="Timer" parent="."]
+one_shot = true

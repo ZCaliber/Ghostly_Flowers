@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @warning_ignore("unused_signal")
 signal directions(horizontal_direction, vertical_direction)
+signal state
 
 const SPEED: float = 2000.0
 const FLOOR_SPEED_BOOST: float = 2.0  # Multiplier for speed on the floor
@@ -19,6 +20,7 @@ var lingering_boost_speed: float = 0.0  # Speed after leaving the floor to decay
 var flight: float = 0.6  # Flight (Anti-gravity)
 var jump: float = -1500.0  # Jump velocity
 var drop: int = 5  # Drop speed multiplier
+var player_state: String = "idle ground"
 
 # Preload textures
 var eyes_open := preload("res://Sprites/Ghosty/GhostyEyesO.png")
@@ -36,20 +38,39 @@ var sprite_blank := preload("res://Sprites/Ghosty/GhostyBlank.png")
 var sprite_blank_drop := preload("res://Sprites/Ghosty/GhostyBlankDrop.png")
 
 @warning_ignore("unused_parameter")
+func _ready() -> void:
+	$"..".connect("start", Callable(self, "_on_start"))
+	set_process(false)
+
+func _on_start() -> void:
+	# Enable player actions after receiving the 'start' signal
+	set_process(true)
+	# print("Player ready!")
+
 func _process(delta: float) -> void:
+	# Reads player state
+	state_reader()
 	# Emit signal with the current movement directions
 	emit_signal("directions", horizontal_direction, vertical_direction)
-
+	# Emit signal with player state
+	emit_signal("state", player_state)
 	# Determine animation state based on velocity
 	if velocity.y > 3000:
 		# Falling state
 		_set_animation_state_dropping()
+		if $DropChecker.is_stopped():
+			$DropChecker.start()
+		else:
+			pass
 	elif abs(velocity.x) > SPEED + 10:
 		# Moving state
 		_set_animation_state_moving()
 	else:
 		# Idle state
 		_set_animation_state_idle()
+	if $DropChecker.time_left > 0 and is_on_floor():
+		# print("Ground slam!")
+		_ground_slam_check()
 
 func _physics_process(delta: float) -> void:
 	# Handle input
@@ -168,3 +189,15 @@ func _set_animation_state_idle() -> void:
 	$Mouth.texture = mouth_closed
 	$Mouth.visible = true
 	$Blush.texture = blush_normal
+
+func state_reader() -> void:
+	if $".".is_on_floor() == false and velocity.y > 3000:
+		player_state = "drop"
+	elif $".".is_on_floor() == true and abs(velocity.x) > SPEED + 10:
+		player_state = "boost floor"
+	elif $".".is_on_floor() == false and abs(velocity.x) > SPEED + 10:
+		player_state = "boost"
+
+func _ground_slam_check() -> void:
+	$DropChecker.stop()
+	player_state = "land"

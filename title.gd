@@ -14,6 +14,8 @@ func _ready() -> void:
 		$HighscoreMarginBox/Highscore.text = "Highscore: " + str(GlobalOptions.highscore)
 
 func _on_start_pressed() -> void:
+	$FadeAnimation.play("fade")
+	await $FadeAnimation.animation_finished
 	get_tree().change_scene_to_file("res://node_2d.tscn")
 
 func _on_options_pressed() -> void:

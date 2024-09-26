@@ -1,10 +1,70 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxgnyliibx3g8"]
+[gd_scene load_steps=8 format=3 uid="uid://cxgnyliibx3g8"]
 
 [ext_resource type="Texture2D" uid="uid://dphx1gb8bf8xo" path="res://Sprites/GhostBlock1.png" id="1_5pwa3"]
+[ext_resource type="Script" path="res://ghost_block.gd" id="1_vs10s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwhkq"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n2s63"]
+
+[sub_resource type="Animation" id="Animation_1g88k"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_ffogk"]
+resource_name = "Slam"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(100, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tm2a4"]
+_data = {
+"RESET": SubResource("Animation_1g88k"),
+"Slam": SubResource("Animation_ffogk")
+}
+
 [node name="GhostBlock" type="StaticBody2D"]
+script = ExtResource("1_vs10s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_5pwa3")
@@ -14,3 +74,17 @@ visible = false
 position = Vector2(-1, 16)
 scale = Vector2(14.39, 13.035)
 shape = SubResource("RectangleShape2D_kwhkq")
+
+[node name="GBTimer" type="Timer" parent="."]
+
+[node name="Sight" type="Area2D" parent="."]
+
+[node name="SightCollision" type="CollisionShape2D" parent="Sight"]
+position = Vector2(0, -1500)
+scale = Vector2(20, 150)
+shape = SubResource("RectangleShape2D_n2s63")
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tm2a4")
+}
