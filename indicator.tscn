@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://dl5mrqij5tmti"]
 
-[ext_resource type="Texture2D" uid="uid://b7b02pgoci6nl" path="res://GhostIndicator.png" id="1_l1fk1"]
 [ext_resource type="Script" path="res://indicator.gd" id="1_rrrpd"]
+[ext_resource type="Texture2D" uid="uid://cveu7wd2j5xe0" path="res://Sprites/GhostIndicator.png" id="2_bv6n0"]
 
 [node name="Indicator" type="Node2D"]
 script = ExtResource("1_rrrpd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_l1fk1")
+texture = ExtResource("2_bv6n0")

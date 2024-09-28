@@ -1,7 +1,7 @@
 extends Node
 
-@export var music_volume: float = 1.0
-@export var sound_volume: float = 1.0
+@export var music_volume: float = 0.5
+@export var sound_volume: float = 0.5
 @export var music_muted: bool = false
 @export var sound_muted: bool = false
 @export var highscore: int
