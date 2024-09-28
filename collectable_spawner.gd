@@ -25,6 +25,9 @@ func adjust_spawn_times() -> void: # Decreases spawn intervals
 			spawn_high = 1.0
 
 func _ready() -> void:
+	# Connect to the global celebration signal
+	GlobalOptions.connect("celebrate", Callable(self, "_on_celebration_triggered"))
+	$"..".connect("get_goin", Callable(self, "_resume_after_dance"))
 	set_process(false)
 	$"..".connect("spawn", Callable(self, "_on_start"))
 	await is_processing() == true
@@ -71,3 +74,9 @@ func _on_start() -> void:
 	# Enable spawner after receiving the 'start' signal
 	set_process(true)
 	# print("Spawner ready!")
+
+func _on_celebration_triggered():
+	set_process(false)
+
+func _resume_after_dance() -> void:
+	set_process(true)

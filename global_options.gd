@@ -7,7 +7,7 @@ extends Node
 @export var highscore: int
 var current_dir = OS.get_executable_path().get_base_dir()
 var savefile = current_dir + "/savedata.save"
-
+signal celebrate
 
 # Store the original dB values to adjust relatively
 var original_music_dbs: Dictionary = {}
@@ -50,3 +50,7 @@ func load_highscore():
 		highscore = file.get_32()
 	else:
 		push_error("File system error!")
+
+func trigger_celebration() -> void:
+	emit_signal("celebrate")
+	print("Party!")

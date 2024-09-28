@@ -4,6 +4,8 @@ signal music_volume # Signal for volume control when paused
 var music_quiet: bool = false
 var options_open: bool = false
 
+signal quitting
+
 func _ready() -> void:
 	if GlobalOptions.highscore != 0:
 		$Highscore.text = "Highscore: " + str(GlobalOptions.highscore)
@@ -81,7 +83,9 @@ func _on_options_pressed() -> void:
 			pass
 			
 func _on_quit_pressed() -> void:
+	emit_signal("quitting")
 	get_tree().quit()
+
 
 func _process(delta):
 	PressEsc()

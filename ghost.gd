@@ -39,6 +39,9 @@ var sprite_blank_drop := preload("res://Sprites/Ghosty/GhostyBlankDrop.png")
 
 @warning_ignore("unused_parameter")
 func _ready() -> void:
+	# Connect to the global celebration signal
+	GlobalOptions.connect("celebrate", Callable(self, "_on_celebration_triggered"))
+	$"..".connect("get_goin", Callable(self, "_resume_after_dance"))
 	$"..".connect("start", Callable(self, "_on_start"))
 	set_process(false)
 
@@ -171,24 +174,46 @@ func _handle_horizontal_movement(delta: float) -> void:
 
 # Animation state functions
 func _set_animation_state_moving() -> void:
-	$Sprite.texture = sprite_blank
-	$Eyes.texture = eyes_cla
-	$Mouth.texture = mouth_open
-	$Mouth.visible = true
-	$Blush.texture = blush_normal
+	if $Celebration.visible == true:
+		pass 
+	else:
+		_assure_visibility()
+		$Eyes.visible = true
+		$Mouth.visible = true
+		$Blush.visible = true
+		$Sprite.texture = sprite_blank
+		$Eyes.texture = eyes_cla
+		$Mouth.texture = mouth_open
+		$Blush.texture = blush_normal
 
 func _set_animation_state_dropping() -> void:
-	$Sprite.texture = sprite_blank_drop
-	$Eyes.texture = eyes_drop
-	$Mouth.visible = false
-	$Blush.texture = blush_mega
+	if $Celebration.visible == true:
+		pass 
+	else:
+		$Sprite.visible = true
+		$Eyes.visible = true
+		$Mouth.visible = false
+		$Blush.visible = true
+		$Sprite.texture = sprite_blank_drop
+		$Eyes.texture = eyes_drop
+		$Blush.texture = blush_mega
 
 func _set_animation_state_idle() -> void:
-	$Sprite.texture = sprite_blank
-	$Eyes.texture = eyes_open
-	$Mouth.texture = mouth_closed
-	$Mouth.visible = true
-	$Blush.texture = blush_normal
+	if $Celebration.visible == true:
+		pass
+	else:
+		_assure_visibility()
+		$Sprite.texture = sprite_blank
+		$Eyes.texture = eyes_open
+		$Mouth.texture = mouth_closed
+		$Blush.texture = blush_normal
+
+func _set_animation_state_cheer() -> void:
+	$Eyes.visible = false
+	$Sprite.visible = false
+	$Mouth.visible = false
+	$Blush.visible = false
+	$Celebration.visible = true
 
 func state_reader() -> void:
 	if $".".is_on_floor() == false and velocity.y > 3000:
@@ -201,3 +226,18 @@ func state_reader() -> void:
 func _ground_slam_check() -> void:
 	$DropChecker.stop()
 	player_state = "land"
+
+func _on_celebration_triggered():
+	print("Ghost dance")
+	set_physics_process(false)
+	_set_animation_state_cheer()
+	
+func _assure_visibility() -> void:
+	$Sprite.visible = true
+	$Eyes.visible = true
+	$Mouth.visible = true
+	$Blush.visible = true
+
+func _resume_after_dance() -> void:
+	$Celebration.visible = false
+	set_physics_process(true)

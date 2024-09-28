@@ -2,6 +2,8 @@ extends Node
 
 signal start
 signal spawn
+signal highscore
+signal get_goin
 
 var combo_counter: int = 0  # To track the current combo
 var combo_milestones := [10, 25, 50, 75, 100]  # Add more as needed
@@ -21,6 +23,11 @@ func start_game() -> void:
 	get_tree().paused = false  # Unpause the game (if previously paused)
 
 func _ready() -> void:
+	var pause_menu := $CanvasLayer/PauseMenu
+	if pause_menu:
+		pause_menu.connect("quitting", Callable(self, "_on_quitting"))
+		
+	GlobalOptions.connect("celebrate", Callable(self, "_on_celebrate"))
 	$FadeIn.play("fade")
 	await $FadeIn.animation_finished
 	emit_signal("start")
@@ -149,11 +156,20 @@ func _on_collectable_collected(collectable_position: Vector2) -> void:
 		# show_special_combo_effect(combo_counter)
 
 func reset_combo() -> void:
+		# Check if combo_counter is a high score
+	if combo_counter > GlobalOptions.highscore and combo_counter >= 100:
+		$CelebrateLabel.text = "[center][rainbow freq=1.0 sat=0.8 val=0.8]HIGHSCORE!"
+		GlobalOptions.trigger_celebration()
+	# Check if combo_counter is just above 10 for a regular celebration
+	elif combo_counter >= 100:
+		$CelebrateLabel.text = "[center][rainbow freq=1.0 sat=0.8 val=0.8]AWESOME!"
+		GlobalOptions.trigger_celebration()
+	
 	# Check if current combo_counter exceeds highscore, then update and save the highscore
 	if combo_counter > GlobalOptions.highscore:
 		GlobalOptions.highscore = combo_counter
 		GlobalOptions.save_highscore(GlobalOptions.highscore)
-	
+
 	# Reset the combo score and difficulty
 	combo_counter = 0  
 	difficulty = 0
@@ -163,11 +179,12 @@ func reset_combo() -> void:
 	
 	# Play a "miss" sound or audio feedback
 	miss_audio()
-	
+
 	# Despawn all current collectables in the scene
 	for collectable in get_tree().get_nodes_in_group("Collectable"):
 		collectable.queue_free()  # Safely remove all collectable nodes
 
+		
 
 # func show_special_combo_effect(combo):
 	# print("Combo Milestone Reached: " + str(combo))
@@ -188,3 +205,25 @@ func miss_audio() -> void:
 	var Miss := load("res://Sounds/ResetCombo.mp3") as AudioStream
 	$CollectSounds.stream = Miss
 	$CollectSounds.play()
+	
+func _on_quitting() -> void:
+	if combo_counter > GlobalOptions.highscore:
+		GlobalOptions.highscore = combo_counter
+		GlobalOptions.save_highscore(GlobalOptions.highscore)
+	else:
+		pass
+
+func _on_celebrate() -> void:
+
+	$Music.stop()  # Stop current music
+	
+	$Celebrate.play()  # Play the celebration sound
+	
+	$CelebrateLabel.visible = true  # Show the celebrate label
+	
+	# Wait for the celebration sound to finish
+	await $Celebrate.finished
+	emit_signal("get_goin")
+	# After the celebration sound finishes, switch back to normal music
+	$CelebrateLabel.visible = false
+	$Music.play()  # Start playing the background music again

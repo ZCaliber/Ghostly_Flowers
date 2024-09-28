@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://cn8hvjdysb0ua"]
+[gd_scene load_steps=32 format=4 uid="uid://cn8hvjdysb0ua"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_d6stb"]
 [ext_resource type="AudioStream" uid="uid://bfwp0r7l1iqt" path="res://Sounds/Ready.mp3" id="2_0yl6t"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dfcb5odbb540n" path="res://ghost.tscn" id="5_qukfr"]
 [ext_resource type="PackedScene" uid="uid://dl5mrqij5tmti" path="res://indicator.tscn" id="6_xmbo5"]
 [ext_resource type="AudioStream" uid="uid://dr7nl5hb3txgd" path="res://Sounds/Milestone.mp3" id="7_mjn8h"]
+[ext_resource type="AudioStream" uid="uid://cowuoribm0ed" path="res://Sounds/win-sfx-38507.mp3" id="10_1b5gc"]
 
 [sub_resource type="Animation" id="Animation_qb0qx"]
 tracks/0/type = "bezier"
@@ -232,53 +233,6 @@ sources/1 = SubResource("TileSetScenesCollectionSource_548j4")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ycfh"]
 
-[sub_resource type="Animation" id="Animation_4xfh0"]
-resource_name = "fade"
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Fade:color:r")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Fade:color:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Fade:color:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Fade:color:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
-}
-
 [sub_resource type="Animation" id="Animation_lvhc8"]
 length = 0.001
 tracks/0/type = "bezier"
@@ -326,6 +280,53 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0)
 }
 
+[sub_resource type="Animation" id="Animation_4xfh0"]
+resource_name = "fade"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fade:color:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Fade:color:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Fade:color:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Fade:color:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4am5a"]
 _data = {
 "RESET": SubResource("Animation_lvhc8"),
@@ -361,6 +362,17 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_yqbum")
 }
+
+[node name="CelebrateLabel" type="RichTextLabel" parent="."]
+visible = false
+z_index = 5
+offset_left = -1750.0
+offset_top = -2000.0
+offset_right = 1750.0
+offset_bottom = -500.0
+theme_override_font_sizes/normal_font_size = 550
+bbcode_enabled = true
+fit_content = true
 
 [node name="GhostLabel" type="RichTextLabel" parent="."]
 visible = false
@@ -418,6 +430,9 @@ stream = ExtResource("3_uml0h")
 volume_db = -1.0
 parameters/looping = true
 script = ExtResource("5_8rs73")
+
+[node name="Celebrate" type="AudioStreamPlayer" parent="." groups=["Music"]]
+stream = ExtResource("10_1b5gc")
 
 [node name="ComboCounter" type="RichTextLabel" parent="."]
 visible = false
